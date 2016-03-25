@@ -1,10 +1,10 @@
 {
-  "name": "proPackApp",
+  "name": "ProblemPackApp",
   "main": "step0.html",
   "nodejs": true,
   "window": {
     "title": "题目打包程序",
-    "toolbar": false,
+    "toolbar": true,
     "position": "center",
     "resizable": true,
     "fullscreen": false,
@@ -29,6 +29,6 @@
   ],
   "bug": "https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues",
   "dependencies": {
-    "ueditor": "^1.1.1"
+    "jszip": "^2.6.0"
   }
 }
