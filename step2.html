@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用</title>
+    <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+    <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        var hint = null;
+        var source = null;
+        var config = null;
+        var message = null;
+        var description = null;
+        var inputsample = null;
+        var outputsample = null;
+        var inputdescription = null;
+        var outputdescription = null;
+
+        var preBtn = null;
+        var saveBtn = null;
+        var nextBtn = null;
+
+        function checkChange(){
+            var flag = true;
+            if(hint.innerHTML != config.hint) flag = false;
+            if(source.innerHTML != config.source) flag = false;
+            if(description.innerHTML != config.description) flag = false;
+            if(inputsample.innerHTML != config.inputsample) flag = false;
+            if(outputsample.innerHTML != config.outputsample) flag = false;
+            if(inputdescription.innerHTML != config.inputdescription) flag = false;
+            if(outputdescription.innerHTML != config.outputdescription) flag = false;
+            if(!flag) return confirm("您做了更改且没有保存, 离开后更改将会失效, 确认离开?");
+            else return true;
+        }
+
+        function saveFunc(){
+            config.hint = hint.innerHTML;
+            config.source = source.innerHTML;
+            config.description = description.innerHTML;
+            config.inputsample = inputsample.innerHTML;
+            config.outputsample = outputsample.innerHTML;
+            config.inputdescription = inputdescription.innerHTML;
+            config.outputdescription = outputdescription.innerHTML;
+
+            saveConfig(config, function(){
+                removeClass(message, "alert-danger");
+                addClass(message, "alert-success");
+                message.innerHTML = "保存成功！";
+                removeClass(message, "hidden");
+            }, function(err){
+                removeClass(message, "alert-success");
+                addClass(message, "alert-danger");
+                message.innerHTML = "保存失败, 请重试！<br/>" + err;
+                removeClass(message, "hidden");
+            });
+        }
+
+        function initData(){
+            hint = document.getElementById("hint_text");
+            message = document.getElementById("message");
+            source = document.getElementById("source_text");
+            description = document.getElementById("description_text");
+            inputsample = document.getElementById("inputsample_text");
+            outputsample = document.getElementById("outputsample_text");
+            inputdescription = document.getElementById("inputdescription_text");
+            outputdescription = document.getElementById("outputdescription_text");
+
+            preBtn = document.getElementById("preBtn");
+            saveBtn = document.getElementById("saveBtn");
+            nextBtn = document.getElementById("nextBtn");
+
+            hint.innerHTML = config.hint;
+            source.innerHTML = config.source;
+            description.innerHTML = config.description;
+            inputdescription.innerHTML = config.inputdescription;
+            outputdescription.innerHTML = config.outputdescription;
+            if(config.inputsample)
+                inputsample.innerHTML = config.inputsample;
+            if(config.outputsample)
+                outputsample.innerHTML = config.outputsample;
+
+            preBtn.onclick = nextBtn.onclick = function(){
+                return checkChange();
+            };
+
+            saveBtn.onclick = function(){
+                saveFunc();
+            };
+        };
+
+        function onloadFunc(){
+            initStep();
+            getConfig(function success(data){
+                config = data;
+                initData();
+            }, function error(err){
+                alert(err);
+            });
+        }
+    </script>
+    <style>
+        .desc_text
+        {
+            padding: 9px;
+            font-size: 16px;
+            word-wrap: break-word;
+            background-color: #f6f4ec;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            white-space:pre-wrap;
+        }
+        #submit_table{
+            margin:0px auto;
+        }
+
+        td  .btn
+        {
+            margin-left: 16px;
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+
+        pre
+        {
+            font-size: 16px;
+            background-color: #f6f4ec;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-family: monospace;
+            padding: 2px;
+            line-height: 100%;
+            border: none;                                                                                                                             
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        h2
+        {
+           color: #5A8CD8;
+        }
+        .target-fix
+        {
+            position: relative;
+            top: -60px;
+            display: block;
+        }
+
+        #problem_edit_bar
+        {
+            top: 0px;
+            z-index: 99999;
+            margin: 0, auto;
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+<div class = "body-container container">
+    <div class="row">
+        <div class="navbar-wrapper maintitle" role="navigation">
+            <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
+        </div>
+        <div class="six steps large step-navbar">
+            <span name = "stepBtn" class="step">开始</span>
+            <span name = "stepBtn" class="step">题目基本信息</span>
+            <span name = "stepBtn" class="step active">编辑题目内容</span>
+            <span name = "stepBtn" class="step">添加测试用例</span>
+            <span name = "stepBtn" class="step">添加题解</span>
+            <span name = "stepBtn" class="step">确认</span>
+        </div>
+        <div id="problem_edit_bar">
+            <div id="nic_panel"></div>
+        </div>
+        <div class="hidden" id="problem_edit_mode"></div>
+        <div id="problem_body"class="col-sm-12">
+            <h2 style="text-align:center;color:black;">编辑题目内容</h2>
+            <div id = "message" class="alert alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div id="problem_description">
+                <a class="target-fix" id="description"></a>
+                <h2>题目描述</h2>
+                <div class="desc_text" id="description_text"></div>
+            </div>
+            <div id="problem_input">
+                <a class="target-fix" id="input"></a>
+                <h2>输入描述</h2>
+                <div class="desc_text" id="inputdescription_text"></div>
+            </div>
+            <div id="problem_output">
+                <a class="target-fix" id="output"></a>
+                <h2>输出描述</h2>
+                <div class="desc_text" id="outputdescription_text"></div>
+            </div>
+            <div id="problem_sampleinput">
+                <a class="target-fix" id="sampleinput"></a>
+                <h2>输入样例</h2>
+                <div class="desc_text" id="inputsample_text"><pre></pre></div>
+            </div>
+            <div id="problem_sampleoutput">
+                <a class="target-fix" id="sampleoutput"></a>
+                <h2>输出样例</h2>
+                <div class="desc_text" id="outputsample_text"><pre></pre></div>
+            </div>
+            <div id="problem_hint">
+                <a class="target-fix" id="hint"></a>
+                <h2>提示</h2>
+                <div class="desc_text" id="hint_text"></div>
+            </div>
+            <div id="problem_source">
+                <a class="target-fix" id="source"></a>
+                <h2>来源</h2>
+                <div class="desc_text" id="source_text"></div>
+            </div>
+        </div>
+    </div>
+    <div class="preStepBtn">
+        <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+    </div>
+    <div class="saveStepBtn">
+        <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+    </div>
+    <div class="nextStepBtn">
+        <a class="btn btn-success" href="step3.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    </div>
+</div>
+<div class="footer">
+    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
+    <div class="footer-text">
+        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
+        <p class="footer-p">
+            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
+        </p>
+    </div>
+</div>
+</body>
+    <script src="static/js/nicedit.js"></script>
+    <script>
+        bkLib.onDomLoaded(function() {
+
+            onloadFunc();
+
+           var myNicEditor = new nicEditor({fullPanel : true,iconsPath:"static/images/nicEditorIcons.gif"});
+           myNicEditor.setPanel('nic_panel');
+           edits = ["description","inputdescription","outputdescription","inputsample","outputsample","hint","source"]
+           for (i in edits)
+               myNicEditor.addInstance(edits[i]+"_text");
+        });
+   </script>
+</html>

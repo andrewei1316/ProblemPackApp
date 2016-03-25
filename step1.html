@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用</title>
+    <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+    <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/main.js"></script>
+    <script>
+        var title = null;
+        var level = null;
+        var config = null;
+        var message = null;
+        var timelimit = null;
+        var memorylimit = null;
+        
+        var preBtn = null;
+        var saveBtn = null;
+        var nextBtn = null;
+
+        function checkChange(){
+            var flag = true;
+            if(title.value != config.title) flag = false;
+            if(timelimit.value != config.timelimit) flag = false;
+            if(memorylimit.value != config.memorylimit) flag = false;
+            if(level.value != config.level) flag = false;
+            if(!flag) return confirm("您做了更改且没有保存, 离开后更改将会失效, 确认离开?");
+            else return true;
+        }
+
+        function checkAvail(){
+            var err_message = "";
+            if(!title.value){
+                removeClass(title.parentNode, "has-success");
+                addClass(title.parentNode, "has-error");
+                err_message += "标题不能为空<br/>";
+            }else{
+                removeClass(title.parentNode, "has-error");
+                addClass(title.parentNode, "has-success");
+            }
+            if(isNaN(timelimit.value) || timelimit.value < 1000 || timelimit.value > 50000){
+                removeClass(timelimit.parentNode, "has-success");
+                addClass(timelimit.parentNode, "has-error");
+                err_message += "时间限制范围应为[1000, 50000]<br/>";
+            }else{
+                removeClass(timelimit.parentNode, "has-error");
+                addClass(timelimit.parentNode, "has-success");
+            }
+            if(isNaN(memorylimit.value) || memorylimit.value < 65536 || memorylimit.value > 262144){
+                removeClass(memorylimit.parentNode, "has-success");
+                addClass(memorylimit.parentNode, "has-error");
+                err_message += "内存限制范围为[65536, 262144]<br/>";
+            }else{
+                removeClass(memorylimit.parentNode, "has-error");
+                addClass(memorylimit.parentNode, "has-success");
+            }
+            if(isNaN(level.value) || level.value < 1 || level.value > 5){
+                removeClass(level.parentNode, "has-success");
+                addClass(level.parentNode, "has-error");
+                err_message += "题目难度请从选项框中选择<br/>";
+            }else{
+                removeClass(level.parentNode, "has-error");
+                addClass(level.parentNode, "has-success");
+            }
+            if(!err_message){
+                addClass(message, "hidden");
+                return true;
+            }else{
+                removeClass(message, "alert-success");
+                addClass(message, "alert-danger");
+                message.innerHTML = err_message;
+                removeClass(message, "hidden");
+                return false;
+            }
+        }
+
+        function saveFunc(){
+            if(checkAvail()){
+                config.title = title.value;
+                config.timelimit = timelimit.value;
+                config.memorylimit = memorylimit.value;
+                config.level = level.value;
+                saveConfig(config, function(){
+                    removeClass(message, "alert-danger");
+                    addClass(message, "alert-success");
+                    message.innerHTML = "保存成功！";
+                    removeClass(message, "hidden");
+                }, function(err){
+                    removeClass(message, "alert-success");
+                    addClass(message, "alert-danger");
+                    message.innerHTML = "保存失败, 请重试！<br/>" + err;
+                    removeClass(message, "hidden");
+                });
+            }
+        }
+
+        function initData(){
+            // 获取元素
+            title = document.getElementById("title_text");
+            timelimit = document.getElementById("timelimit_text");
+            memorylimit = document.getElementById("memorylimit_text");
+            level = document.getElementById("proLevel");
+            preBtn = document.getElementById("preBtn");
+            saveBtn = document.getElementById("saveBtn");
+            nextBtn = document.getElementById("nextBtn");
+            message = document.getElementById("message");
+
+            title.value = config.title;
+            timelimit.value = config.timelimit;
+            memorylimit.value = config.memorylimit;
+            level.value = config.level;
+
+            // 添加事件
+            saveBtn.onclick = function(){
+                saveFunc();
+            }
+
+            preBtn.onclick = nextBtn.onclick=function(){
+                return checkChange();
+            }
+        };
+
+        window.onload = function(){
+            initStep();
+            getConfig(function success(data){
+                config = data;
+                initData();
+            }, function error(err){
+                alert(err);
+            });
+        };
+    </script>
+</head>
+<body>
+<div class = "body-container container">
+    <div class="row">
+        <div class="navbar-wrapper maintitle" role="navigation">
+            <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
+        </div>
+        <div class="six steps large step-navbar">
+            <span name = "stepBtn" class="step">开始</span>
+            <span name = "stepBtn" class="step active">题目基本信息</span>
+            <span name = "stepBtn" class="step">编辑题目内容</span>
+            <span name = "stepBtn" class="step">添加测试用例</span>
+            <span name = "stepBtn" class="step">添加题解</span>
+            <span name = "stepBtn" class="step">确认</span>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <h2 class="center-block text-center">题目基本信息</h2>
+            <div id = "message" class="alert alert-dismissable hidden">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+            </div>
+            <div class="form-group">
+                <label>标题</label>
+                <input type="text" class="form-control" id="title_text" placeholder="请输入题目的标题">
+            </div>
+            <div class="form-group">
+                <label>时间限制(MS)</label>
+                <input type="text" class="form-control" id="timelimit_text" placeholder="请输入时间限制">
+            </div>
+            <div class="form-group">
+                <label>内存限制(KB)</label>
+                <input type="text" class="form-control" id="memorylimit_text" placeholder="请输入内存限制">
+            </div>
+            <div class="form-group">
+                <label>题目难度</label>
+                <select class="form-control" title="选择题目难度" id="proLevel">
+                    <option name="problem_level" id="prolevel" autocomplete="off" value="1">简单</option>
+                    <option name="problem_level" id="prolevel" autocomplete="off" value="2">较简单</option>
+                    <option name="problem_level" id="prolevel" autocomplete="off" value="3">一般</option>
+                    <option name="problem_level" id="prolevel" autocomplete="off" value="4">较难</option>
+                    <option name="problem_level" id="prolevel" autocomplete="off" value="5">难</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="preStepBtn">
+        <a class="btn btn-success" href="step0.html" role="button" id = "preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+    </div>
+    <div class="saveStepBtn">
+        <button class="btn btn-info" id = "saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+    </div>
+    <div class="nextStepBtn">
+        <a class="btn btn-success" href="step2.html" role="button" id = "nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    </div>
+</div>
+<div class="footer">
+    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
+    <div class="footer-text">
+        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
+        <p class="footer-p">
+            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
+        </p>
+    </div>
+</div>
+</body>
+</html>

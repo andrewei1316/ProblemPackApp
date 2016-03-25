@@ -1,0 +1,34 @@
+{
+  "name": "proPackApp",
+  "main": "step0.html",
+  "nodejs": true,
+  "window": {
+    "title": "题目打包程序",
+    "toolbar": false,
+    "position": "center",
+    "resizable": true,
+    "fullscreen": false,
+    "show_in_taskbar": true,
+    "width": 1240,
+    "height": 700,
+    "min_width": 1240,
+    "min_height": 700,
+    "icon": "static/images/favicon.png",
+    "frame": true
+  },
+  "webkit": {
+    "page-cache": false
+  },
+  "version": "v1.0",
+  "maintainers": [
+    {
+      "name": "He Shuwei",
+      "email": "565736041@qq.com",
+      "web": "blog.andrewei.info"
+    }
+  ],
+  "bug": "https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues",
+  "dependencies": {
+    "ueditor": "^1.1.1"
+  }
+}

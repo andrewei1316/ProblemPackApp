@@ -1,0 +1,38 @@
+.steps,.step{display:inline-block;position:relative;padding:1em 2em 1em 3em;vertical-align:top;background-color:#FFF;color:#888;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}
+.step:after,.steps .step:after{position:absolute;z-index:2;content:'';top:0;right:-1.45em;border-bottom:1.5em solid transparent;border-left:1.5em solid #FFF;border-top:1.5em solid transparent;width:0;height:0}
+.step,.steps .step,.steps .step:after{-webkit-transition:opacity .1s ease,color .1s ease,-webkit-box-shadow .1s ease;transition:opacity .1s ease,color .1s ease,box-shadow .1s ease}
+.steps{cursor:pointer;display:inline-block;font-size:0;box-shadow:0 0 0 1px rgba(0,0,0,.1);line-height:1;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;border-radius:.3125rem}
+.steps .step:first-child{padding-left:1.35em;border-radius:.3125em 0 0 .3125em}
+.steps .step:last-child{border-radius:0 .3125em .3125em 0}
+.steps .step:only-child{border-radius:.3125em}
+.steps .step:last-child{margin-right:0}
+.steps .step:last-child:after{display:none}
+.step:hover,.step.hover{background-color:#F7F7F7;color:rgba(0,0,0,.8)}
+.steps .step.hover:after,.steps .step:hover:after,.step:hover,.step.hover::after{border-left-color:#F7F7F7}
+.steps .step.down,.steps .step:active,.step.down,.step:active{background-color:#F0F0F0}
+.steps .step.down:after,.steps .step:active:after,.steps.down::after,.steps:active::after{border-left-color:#F0F0F0}
+.steps .step.active,.active.step{cursor:auto;background-color:#428BCA;color:#FFF;font-weight:700}.steps .step.active:after,.active.steps:after{border-left-color:#428BCA}
+.steps .disabled.step,.disabled.step{cursor:auto;background-color:#FFF;color:#CBCBCB}
+.disabled.step:after{border:0;background-color:#FFF;top:.42em;right:-1em;width:2.15em;height:2.15em;-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);transform:rotate(-45deg);box-shadow:-1px -1px 0 0 rgba(0,0,0,.1) inset}
+.attached.steps{margin:0;border-radius:.3125em .3125em 0 0}
+.attached.steps .step:first-child{border-radius:.3125em 0 0}
+.attached.steps .step:last-child{border-radius:0 .3125em 0 0}
+.bottom.attached.steps{margin-top:-1px;border-radius:0 0 .3125em .3125em}
+.bottom.attached.steps .step:first-child{border-radius:0 0 0 .3125em}
+.bottom.attached.steps .step:last-child{border-radius:0 0 .3125em}
+ 
+/*向导数量*/
+.one.steps,.two.steps,.three.steps,.four.steps,.five.steps,.six.steps,.seven.steps,.eight.steps{display:block}
+.one.steps>.step{width:100%}
+.two.steps>.step{width:50%}
+.three.steps>.step{width:33.333%}
+.four.steps>.step{width:25%}
+.five.steps>.step{width:20%}
+.six.steps>.step{width:16.666%}
+.seven.steps>.step{width:14.285%}
+.eight.steps>.step{width:12.5%}
+ 
+/*向导尺寸*/
+.small.step,.small.steps .step{font-size:.8rem}/*小*/
+.step,.steps .step{font-size:1rem}/*默认*/
+.large.step,.large.steps .step{font-size:1.3rem}/*大*/
