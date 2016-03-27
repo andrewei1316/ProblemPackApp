@@ -394,8 +394,27 @@ function zipFiles(detPath, successFunc, errorFunc){
 	});
 }
 
+/**
+ * [downloadproblema 下载题目压缩包]
+ * @param  { string } detPath     [文件保存位置]
+ * @param  { function } successFunc [成功后调用的函数]
+ * @param  { function } errorFunc   [失败后调用的函数]
+ * @return {[type]}             [description]
+ */
 function downloadproblem(detPath, successFunc, errorFunc){
 	checkAll(function(){
 		zipFiles(detPath, successFunc, errorFunc);
 	}, errorFunc);
+}
+
+/**
+ * [getPictionBase64 得到一张图片的base64编码]
+ * @param  { string } picUrl [图片的完整路径]
+ * @return { string }        [图片的base64编码]
+ */
+function getPictionBase64(picUrl){
+	fs = require("fs");
+	var data = fs.readFileSync(picUrl);
+	if(data != null) return data.toString('base64');
+	else return null;
 }
