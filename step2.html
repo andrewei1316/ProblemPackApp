@@ -24,6 +24,8 @@
         var preBtn = null;
         var saveBtn = null;
         var nextBtn = null;
+        var preViewBtn = null;
+        var problemData = null; 
 
         function checkChange(){
             var flag = true;
@@ -64,6 +66,7 @@
             hint = document.getElementById("hint_text");
             message = document.getElementById("message");
             source = document.getElementById("source_text");
+            preViewBtn = document.getElementById("preViewBtn");
             description = document.getElementById("description_text");
             inputsample = document.getElementById("inputsample_text");
             outputsample = document.getElementById("outputsample_text");
@@ -91,6 +94,18 @@
             saveBtn.onclick = function(){
                 saveFunc();
             };
+
+            preViewBtn.onclick = function(){
+                problemData = new Object(); 
+                problemData.hint = hint.innerHTML;
+                problemData.source = source.innerHTML;
+                problemData.description = description.innerHTML;
+                problemData.inputsample = inputsample.innerHTML;
+                problemData.outputsample = outputsample.innerHTML;
+                problemData.inputdescription = inputdescription.innerHTML;
+                problemData.outputdescription = outputdescription.innerHTML;
+                window.open ('preview.html','预览','height=700,width=1240,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+            }
         };
 
         function onloadFunc(){
@@ -114,17 +129,6 @@
             border-radius: 4px;
             white-space:pre-wrap;
         }
-        #submit_table{
-            margin:0px auto;
-        }
-
-        td  .btn
-        {
-            margin-left: 16px;
-            margin-top: -5px;
-            margin-bottom: -5px;
-        }
-
         pre
         {
             font-size: 16px;
@@ -208,6 +212,9 @@
     </div>
     <div class="preStepBtn">
         <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+    </div>
+    <div class="previewBtn">
+        <button class="btn btn-default" id="preViewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
     </div>
     <div class="saveStepBtn">
         <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>

@@ -62,6 +62,13 @@ body{
     position: relative;
 }
 
+.previewBtn{
+    right: 210px;
+    bottom: 20px;
+    position: absolute;
+    display: inline-block;
+}
+
 .saveStepBtn{
     right: 120px;
     bottom: 20px;
