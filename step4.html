@@ -81,6 +81,8 @@
             saveBtn.onclick = function(){
                 saveFunc();
             }
+
+            $('[data-toggle="popover"]').popover();
         };
         window.onload=function(){
             initStep();
@@ -126,7 +128,9 @@
                 </button>
             </div>
             <div class="btn-group submit-setting">
-                <label id="lblcode">编程语言</label><br/>
+                <label id="lblcode">编程语言</label>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="添加题解" data-content="目前支持的语言有C语言、C++语言、JAVA语言, 可以根据需要来填写参考的解题程序和参考程序所用的思路."></a>
+                <br/>
                 <select class="form-control " id="complier" name="compiler">
                     <option name="compiler_select" value="c">C语言</option>
                     <option name="compiler_select" value="cpp">C++语言</option>

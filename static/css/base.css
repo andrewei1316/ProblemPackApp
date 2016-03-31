@@ -34,6 +34,17 @@ html{
     margin-left: 15px;
 }
 
+.desc_text
+{
+    padding: 9px;
+    font-size: 16px;
+    word-wrap: break-word;
+    background-color: #f6f4ec;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    white-space:pre-wrap;
+}
+
 body{
     min-height: 100%;
     position: relative;
@@ -122,4 +133,17 @@ body{
 .downloadico{
     font-size: 80px;
     opacity: 0.7;
+}
+
+.helpText{
+    opacity: 0.3;
+    font-size: 13px;
+    color: black;
+    display: inline;
+}
+
+.problemItem
+{
+    color: #5A8CD8;
+    display: inline-block;
 }

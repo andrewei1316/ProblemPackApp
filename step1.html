@@ -122,6 +122,8 @@
             preBtn.onclick = nextBtn.onclick=function(){
                 return checkChange();
             }
+
+            $('[data-toggle="popover"]').popover();
         };
 
         window.onload = function(){
@@ -158,18 +160,22 @@
             </div>
             <div class="form-group">
                 <label>标题</label>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="标题" data-content="标题即为题目取一个名字, 可以为中文或者英文."></a>
                 <input type="text" class="form-control" id="title_text" placeholder="请输入题目的标题">
             </div>
             <div class="form-group">
                 <label>时间限制(MS)</label>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="时间限制" data-content="时间限制是每个测试用例在测试用户提交的程序是否正确时所允许的最长运行时间, 当程序运行时间超出这个时间限制时, 平台将终止该程序的测试并返回超出时间限制. 时间限制要根据题目最大数据量以及解决该问题所用算法的复杂度来决定, 一般认为计算机的运行速度为10^8每秒. 注意此处的单位为MS, 时间限制不要少于1000MS."></a>
                 <input type="text" class="form-control" id="timelimit_text" placeholder="请输入时间限制">
             </div>
             <div class="form-group">
                 <label>内存限制(KB)</label>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="内存限制" data-content="内存限制是每个测试用例在测试用户提交的程序是否正确时所允许使用的最大内存, 当程序运行时间超出这个内存限制时, 平台将终止该程序的测试并返回超出内存限制. 内存限制要根据题目最大数据量以及解决该问题所用算法的数据结构来决定. 注意此处的单位为KB, 内存限制不要少于65536KB."></a>
                 <input type="text" class="form-control" id="memorylimit_text" placeholder="请输入内存限制">
             </div>
             <div class="form-group">
                 <label>题目难度</label>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="题目难度" data-content="平台上的题目分为简单、较简单、一般、较难、难五个档次, 默认为一般. 出题时可以根据具体情况来标定题目的难度, 这个属性可以方便今后考试组题时难度的把握."></a>
                 <select class="form-control" title="选择题目难度" id="proLevel">
                     <option name="problem_level" id="prolevel" autocomplete="off" value="1">简单</option>
                     <option name="problem_level" id="prolevel" autocomplete="off" value="2">较简单</option>
@@ -200,4 +206,6 @@
     </div>
 </div>
 </body>
+<script>
+</script>
 </html>

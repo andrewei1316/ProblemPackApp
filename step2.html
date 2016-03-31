@@ -106,6 +106,8 @@
                 problemData.outputdescription = outputdescription.innerHTML;
                 window.open ('preview.html','预览','height=700,width=1240,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
             }
+
+            $('[data-toggle="popover"]').popover();
         };
 
         function onloadFunc(){
@@ -119,16 +121,6 @@
         }
     </script>
     <style>
-        .desc_text
-        {
-            padding: 9px;
-            font-size: 16px;
-            word-wrap: break-word;
-            background-color: #f6f4ec;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            white-space:pre-wrap;
-        }
         pre
         {
             font-size: 16px;
@@ -138,13 +130,9 @@
             font-family: monospace;
             padding: 2px;
             line-height: 100%;
-            border: none;                                                                                                                             
+            border: none;
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-        h2
-        {
-           color: #5A8CD8;
         }
         #problem_edit_bar
         {
@@ -172,40 +160,48 @@
         <div id="problem_edit_bar">
             <div id="nic_panel"></div>
         </div>
-        <div class="hidden" id="problem_edit_mode"></div>
-        <div id="problem_body"class="col-sm-12">
-            <h2 style="text-align:center;color:black;">编辑题目内容</h2>
+        <div id="problem_body" class="col-sm-12">
+            <h2 class="text-center">编辑题目内容</h2>
             <div id = "message" class="alert alert-dismissable hidden">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>
             </div>
             <div id="problem_description">
-                <h2>题目描述</h2>
+                <h2 class="problemItem">题目描述</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="题目描述" data-content="题目内容中的题目描述、输入描述、输出描述、提示和来源等处均已支持 MathJax 数学公式渲染引擎, 您可以在上述区域插入 Latex、MathML 和 ASCIIMathML 等标记语言, 有个比较简单的方法是, 您可以在网络上进行Latex的在线编辑,然后将生成的代码复制到需要插入公式的区域. 注意: 您需要将生成的公式插入到两个符号之间才能正常渲染,主要有一下几种符号:
+            $ 公式 $ 或 \( 公式 \) 可以实现公式在行内显示.
+            $$ 公式 $$ 或 \[ 公式 \] 可以实现公式独占一行显示. 在插入公式后您可以点击页面下方的预览按钮来查看效果以便及时调整版面. 另外在该页面的顶部集成了一个富文本编辑器, 可以对于题目描述中的文字进行格式编辑(与Word类似), 也可以插入图片, 但要注意图片的大小请不要超过1MB. 题目描述即题干, 需要描述清楚这个题目需要解决什么问题."></a>
                 <div class="desc_text" id="description_text"></div>
             </div>
             <div id="problem_input">
-                <h2>输入描述</h2>
+                <h2 class="problemItem">输入描述</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="输入描述" data-content="输入描述需要重点说明测试数据的输入格式, 建议指明所有输入的变量的数据范围, 这将决定着解决题目时所选用的算法和数据结构有利于估计复杂度."></a>
                 <div class="desc_text" id="inputdescription_text"></div>
             </div>
             <div id="problem_output">
-                <h2>输出描述</h2>
+                <h2 class="problemItem">输出描述</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="输出描述" data-content="输出描述需要重点说明程序输出数据的格式"></a>
                 <div class="desc_text" id="outputdescription_text"></div>
             </div>
             <div id="problem_sampleinput">
-                <h2>输入样例</h2>
+                <h2 class="problemItem">输入样例</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="输入样例" data-content="输入样例要保证与输入描述中规定的输入格式和数据范围相同, 样例最好具有典型性, 可以帮助理解题意."></a>
                 <div class="desc_text" id="inputsample_text"><pre></pre></div>
             </div>
             <div id="problem_sampleoutput">
-                <h2>输出样例</h2>
+                <h2 class="problemItem">输出样例</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="输出样例" data-content="输出样例要保证与输出描述中规定的输出格式相同."></a>
                 <div class="desc_text" id="outputsample_text"><pre></pre></div>
             </div>
             <div id="problem_hint">
-                <h2>提示</h2>
+                <h2 class="problemItem">提示</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="提示" data-content="提示主要针对题意的理解做一些补充的说明, 也可以对样例进行说明(例如输入的数据是如何得到输出的数据的),可填可不填."></a>
                 <div class="desc_text" id="hint_text"></div>
             </div>
             <div id="problem_source">
-                <h2>来源</h2>
+                <h2 class="problemItem">来源</h2>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="来源" data-content="类似于题目的版权声明, 可填可不填."></a>
                 <div class="desc_text" id="source_text"></div>
             </div>
         </div>

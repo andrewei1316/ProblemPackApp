@@ -192,6 +192,8 @@
             getDataFiles(apendText, addRow, function(err){
                 alert(err);
             });
+
+            $('[data-toggle="popover"]').popover();
         };
 
         window.onload=function(){
@@ -202,7 +204,6 @@
             }, function error(err){
                 alert(err);
             });
-
         }
     </script>
 </head>
@@ -232,18 +233,21 @@
                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"> 选择文件夹</span>
                     <input id="fileupload" type="file" nwdirectory />
                 </span>
+                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="left" title="添加测试用例" data-content="添加用来测试提交的程序的数据, 要求所有的测试用例放在同一个文件夹中, 输入文件的扩展名必须为.in, 输出文件的扩展名必须为.out, 同时要求输入文件与输出文件的名称必须相同(此处的名称不包括扩展名), 测试用例中的测试点应当尽可能全面, 多方位测试程序的正确性, 如果要考察程序性能, 建议测试用例的数据量有小有大, 让暴力算法可得分但是得不到满分."></a>
             </div>
             <br/><br/>
             <table id="testCaseTable" class="table table-hover hidden">
                 <thead>
                     <tr>
-                        <th> <p>编号</p> </th>
-                        <th> <p>输入数据文件</p> </th>
-                        <th> <p>输出数据文件</p> </th>
-                        <th> <p>测试用例分值</p> </th>
+                        <th> <p style="display:inline">编号</p> </th>
+                        <th> <p style="display:inline">输入数据文件</p> </th>
+                        <th> <p style="display:inline">输出数据文件</p> </th>
+                        <th> <p style="display:inline">测试用例分值</p>
+                            <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="测试用例分值" data-content="为每一个测试用例定一个分值, 默认的分值是按平均来设定的, 建议根据各个测试用例测试点的价值来重新设定(例如:比较难的测试点分值较高等), 分值的总分应该是100分."></a>
+                        </th>
                     </tr>
                 </thead>
-                <tbody id="tbody1" style="text-align:center;">
+                <tbody>
                 </tbody>
             </table>
         </div>

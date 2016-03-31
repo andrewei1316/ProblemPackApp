@@ -45,7 +45,7 @@
                 }, function error(err){
                     removeClass(message, "alert-success");
                     addClass(message, "alert-danger");
-                    message.innerHTML = "校验失败, 请仔细检查一下项目！<br/>" + err;
+                    message.innerHTML = "校验失败, 请仔细检查一下项目:<br/>" + err;
                     removeClass(message, "hidden");
                 });
              });
