@@ -100,12 +100,9 @@
                 problemData.outputdescription = outputdescription.innerHTML;
                 window.open ('preview.html','预览','height=700,width=1240,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
             }
-
         };
 
         function onloadFunc(){
-            $('.contentBody').height(($(window).height()-252));
-            $('[data-toggle="popover"]').popover();
             initStep();
             getConfig(function success(data){
                 config = data;
@@ -117,8 +114,8 @@
     </script>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -130,59 +127,59 @@
             <span name = "stepBtn" class="step">添加题解</span>
             <span name = "stepBtn" class="step">完成确认</span>
         </div>
-        <div class="contentBody">
-            <div class="problemEditBar">
-                <div id="nic_panel"></div>
-            </div>
-            <div class="col-md-12">
-                <div class="subhead" style="padding-top:13px">编辑题目内容<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemContent" target="_blank"></a></div>
-                <div id="problem_description">
-                    <h2 class="problemItem">题目描述</h2>
-                    <div class="desc_text" id="description_text"></div>
-                </div>
-                <div id="problem_input">
-                    <h2 class="problemItem">输入描述</h2>
-                    <div class="desc_text" id="inputdescription_text"></div>
-                </div>
-                <div id="problem_output">
-                    <h2 class="problemItem">输出描述</h2>
-                    <div class="desc_text" id="outputdescription_text"></div>
-                </div>
-                <div id="problem_sampleinput">
-                    <h2 class="problemItem">输入样例</h2>
-                    <div class="desc_text" id="inputsample_text"><pre></pre></div>
-                </div>
-                <div id="problem_sampleoutput">
-                    <h2 class="problemItem">输出样例</h2>
-                    <div class="desc_text" id="outputsample_text"><pre></pre></div>
-                </div>
-                <div id="problem_hint">
-                    <h2 class="problemItem">提示</h2>
-                    <div class="desc_text" id="hint_text"></div>
-                </div>
-                <div id="problem_source">
-                    <h2 class="problemItem">来源</h2>
-                    <div class="desc_text" id="source_text"></div>
-                </div>
-            </div>
+    </div>
+    <div class="dBody">
+        <div class="problemEditBar">
+            <div id="nic_panel"></div>
         </div>
-        <div class="divBtn col-md-12">
-            <div class="preStepBtn">
-                <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        <div class="col-md-12">
+            <div class="subhead" style="padding-top:13px">编辑题目内容<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemContent" target="_blank"></a></div>
+            <div id="problem_description">
+                <h3 class="problemItem">题目描述</h3>
+                <div class="desc_text" id="description_text"></div>
             </div>
-            <div class="previewBtn">
-                <button class="btn btn-default" id="preViewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
+            <div id="problem_input">
+                <h3 class="problemItem">输入描述</h3>
+                <div class="desc_text" id="inputdescription_text"></div>
             </div>
-            <div class="saveStepBtn">
-                <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+            <div id="problem_output">
+                <h3 class="problemItem">输出描述</h3>
+                <div class="desc_text" id="outputdescription_text"></div>
             </div>
-            <div class="nextStepBtn">
-                <a class="btn btn-success" href="step3.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+            <div id="problem_sampleinput">
+                <h3 class="problemItem">输入样例</h3>
+                <div class="desc_text" id="inputsample_text"><pre></pre></div>
+            </div>
+            <div id="problem_sampleoutput">
+                <h3 class="problemItem">输出样例</h3>
+                <div class="desc_text" id="outputsample_text"><pre></pre></div>
+            </div>
+            <div id="problem_hint">
+                <h3 class="problemItem">提示</h3>
+                <div class="desc_text" id="hint_text"></div>
+            </div>
+            <div id="problem_source">
+                <h3 class="problemItem">来源</h3>
+                <div class="desc_text" id="source_text"></div>
             </div>
         </div>
     </div>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
+        <div class="previewBtn">
+            <button class="btn btn-default" id="preViewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
+        </div>
+        <div class="saveStepBtn">
+            <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+        </div>
+        <div class="nextStepBtn">
+            <a class="btn btn-success" href="step3.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
+    </div>
 </div>
-<div class="container footer">
+<div class="footer">
     <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
     <div class="footer-text">
         <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>

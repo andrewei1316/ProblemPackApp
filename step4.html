@@ -77,8 +77,6 @@
             }
         };
         window.onload=function(){
-            $('.contentBody').height(($(window).height()-252));
-            $('[data-toggle="popover"]').popover();
             initStep();
             getConfig(function success(data){
                 config = data;
@@ -90,8 +88,8 @@
     </script>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -103,42 +101,42 @@
             <span name = "stepBtn" class="step active">添加题解</span>
             <span name = "stepBtn" class="step">完成确认</span>
         </div>
-        <div class="contentBody">
-            <div class="col-md-12">
-                <div class="subhead">添加题解<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemSolution" target="_blank"></a></div>
-                <div class="btn-group compiler">
-                    <label class="lblcode">编程语言</label>
-                    <br/>
-                    <select class="form-control compiler" id="compiler" name="compiler">
-                        <option name="compiler_select" value="c">C语言</option>
-                        <option name="compiler_select" value="cpp">C++语言</option>
-                        <option name="compiler_select" value="java">JAVA语言</option>
-                    </select>
-                </div> <br/><br/>
-                <div class="col-md-7">
-                    <label class="lblcode">参考程序</label>
-                    <textarea id="code" rows="25"></textarea>
-                </div>
-                <div class="col-md-5">
-                    <label class="lblcode">解题思路</label>
-                    <textarea class="form-control" id="solution" rows="25"></textarea>
-                </div>
+    </div>
+    <div class="dBody">
+        <div class="col-md-12">
+            <div class="subhead">添加题解<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemSolution" target="_blank"></a></div>
+            <div class="btn-group compiler">
+                <label class="lblcode">编程语言</label>
+                <br/>
+                <select class="form-control compiler" id="compiler" name="compiler">
+                    <option name="compiler_select" value="c">C语言</option>
+                    <option name="compiler_select" value="cpp">C++语言</option>
+                    <option name="compiler_select" value="java">JAVA语言</option>
+                </select>
+            </div> <br/><br/>
+            <div class="col-md-7">
+                <label class="lblcode">参考程序</label>
+                <textarea id="code" rows="25"></textarea>
             </div>
-        </div>
-        <div class="divBtn col-md-12">
-            <div class="preStepBtn">
-                <a class="btn btn-success" href="step3.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-            </div>
-            <div class="saveStepBtn">
-                <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-            </div>
-            <div class="nextStepBtn">
-                <a class="btn btn-success" href="step5.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+            <div class="col-md-5">
+                <label class="lblcode">解题思路</label>
+                <textarea class="form-control" id="solution" rows="25"></textarea>
             </div>
         </div>
     </div>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step3.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
+        <div class="saveStepBtn">
+            <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+        </div>
+        <div class="nextStepBtn">
+            <a class="btn btn-success" href="step5.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
+    </div>
 </div>
-<div class="container footer">
+<div class="footer">
     <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
     <div class="footer-text">
         <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>

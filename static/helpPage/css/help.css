@@ -12,10 +12,10 @@ a {
  ===========================*/
  .accordion {
  	width: 100%;
- 	max-width: 360px;
+ 	max-width: 350px;
  	padding-left: 5px;
  	padding-right: 5px;
- 	margin: 0px auto 20px;
+ 	margin: 0 auto 20px;
  	background: #428bca;
  	-webkit-border-radius: 4px;
  	-moz-border-radius: 4px;

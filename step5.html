@@ -53,8 +53,6 @@
             }
         }
         window.onload=function(){
-            $('.contentBody').height(($(window).height()-252));
-            $('[data-toggle="tooltip"]').tooltip()
             initStep();
             getConfig(function success(data){
                 config = data;
@@ -66,8 +64,8 @@
     </script>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -79,42 +77,42 @@
             <span name = "stepBtn" class="step">添加题解</span>
             <span name = "stepBtn" class="step active">完成确认</span>
         </div>
-        <div class="contentBody">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="subhead">完成确认</div>
+    </div>
+    <div class="dBody">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="subhead">完成确认</div>
+            <br/>
+            <ul class="h4">
+                <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
                 <br/>
-                <ul class="h4">
-                    <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
-                    <br/>
-                    <li>当然, 在您单击按钮之后, 我们会对您之前的工作做一个校验, 但是类似题目内容和参考题解这类的信息, 我们无法校验, 还请您注意检查</li>
-                    <br/>
-                    <li>当您的测试文件数据量很大时生成压缩包的时间会比较长, 请您耐心等待</li>
-                </ul>
-                <div id = "hintDiv" class="alert alert-dismissable alert-warning hidden">
-                    <strong>提醒 </strong>您可以单击重新开始一道新的题目按钮来编辑一道新的题目, 但是这会导致您当前的编辑信息丢失, 请您在确定已经成功下载题目信息压缩包后再继续.
-                </div>
-                <div class="text-center">
-                    <div class="btn-group">
-                        <span class="btn btn-default downloadBtn" id="downloadBtn" data-toggle="tooltip" data-placement="bottom" title="下载题目信息">
-                            <span class="glyphicon glyphicon-download-alt downloadico" aria-hidden="true"></span>
-                            <input type='file' nwsaveas='problem.zip' id="saveProBtn"/>
-                        </span>
-                    </div>
-                    <div class="btn-group hidden" id="repeatDiv">
-                        <button class="btn btn-default " id="repeatBtn" data-toggle="tooltip" data-placement="bottom" title="重新开始一道新的题目"><span class="glyphicon glyphicon-repeat downloadico" aria-hidden="true"></span></button>
-                    </div>
-                </div>
+                <li>当然, 在您单击按钮之后, 我们会对您之前的工作做一个校验, 但是类似题目内容和参考题解这类的信息, 我们无法校验, 还请您注意检查</li>
                 <br/>
+                <li>当您的测试文件数据量很大时生成压缩包的时间会比较长, 请您耐心等待</li>
+            </ul>
+            <div id = "hintDiv" class="alert alert-dismissable alert-warning hidden">
+                <strong>提醒 </strong>您可以单击重新开始一道新的题目按钮来编辑一道新的题目, 但是这会导致您当前的编辑信息丢失, 请您在确定已经成功下载题目信息压缩包后再继续.
             </div>
+            <div class="text-center">
+                <div class="btn-group">
+                    <span class="btn btn-default downloadBtn" id="downloadBtn" data-toggle="tooltip" data-placement="bottom" title="下载题目信息">
+                        <span class="glyphicon glyphicon-download-alt downloadico" aria-hidden="true"></span>
+                        <input type='file' nwsaveas='problem.zip' id="saveProBtn"/>
+                    </span>
+                </div>
+                <div class="btn-group hidden" id="repeatDiv">
+                    <button class="btn btn-default " id="repeatBtn" data-toggle="tooltip" data-placement="bottom" title="重新开始一道新的题目"><span class="glyphicon glyphicon-repeat downloadico" aria-hidden="true"></span></button>
+                </div>
+            </div>
+            <br/>
         </div>
-        <div class="divBtn col-md-12">
-            <div class="preStepBtn">
-                <a class="btn btn-success" href="step4.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-            </div>
+    </div>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step4.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
         </div>
     </div>
 </div>
-<div class="container footer">
+<div class="footer">
     <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
     <div class="footer-text">
         <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
