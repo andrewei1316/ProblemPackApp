@@ -2,11 +2,87 @@ html{
     height: 100%;
 }
 
-/*------For footer----*/
+/*---- 页面整体效果 ----*/
+body{
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 74px;
+    background-color: #e6e6e6 !important;
+    font-family: "微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.body-container{
+    background-color: #ffffff;
+    -webkit-border-bottom-right-radius:8px;
+    -webkit-border-bottom-left-radius:8px;
+    -moz-border-radius-bottomright:8px;
+    -moz-border-radius-bottomleft:8px;
+}
+
+/*---- 页面顶部的标题----*/
+.maintitle{
+    position: relative;
+    padding-left: 30px;
+    font-family: "Helvetica Neue",Helvetica,"微软雅黑",Arial,sans-serif;
+}
+
+/*---- 导航条 ----*/
+.step-navbar {
+    position: relative;
+    margin: 0 15px;
+}
+
+/*---- 按钮 ----*/
+.divBtn{
+    height: 70px;
+    padding: 20px 15px;
+    position: relative;
+}
+
+.preStepBtn{
+    left: 15px;
+    position: absolute;
+    display: inline-block;
+}
+
+.previewBtn{
+    right: 210px;
+    position: absolute;
+    display: inline-block;
+}
+
+.saveStepBtn{
+    right: 120px;
+    position: absolute;
+    display: inline-block;
+}
+
+.nextStepBtn{
+    right: 20px;
+    position: absolute;
+    display: inline-block;
+}
+
+/*----- 各个步骤的标题 -----*/
+.subhead{
+    font-size: 30px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/*----- 内容主题 -----*/
+.contentBody{
+    height: 409px;
+    overflow: auto;
+}
+
+/*---- 页脚 ----*/
 .footer{
     position: absolute;
+    right: -20px;
     left: 0;
-    right: 7%;
     bottom: 0;
     overflow: hidden;
     height: 74px;
@@ -22,20 +98,8 @@ html{
     margin-bottom: 0px;
 }
 
-.maintitle{
-    padding-bottom: 15px;
-    padding-top: 10px;
-    padding-left: 30px;
-    font-family: "Helvetica Neue",Helvetica,"微软雅黑",Arial,sans-serif;
-}
-
-.step-navbar {
-    margin-right: 15px;
-    margin-left: 15px;
-}
-
-.desc_text
-{
+/*---- 题目内容编辑页需要编辑的部分 ----*/
+.desc_text{
     padding: 9px;
     font-size: 16px;
     word-wrap: break-word;
@@ -45,59 +109,49 @@ html{
     white-space:pre-wrap;
 }
 
-body{
-    min-height: 100%;
-    position: relative;
-    padding-bottom: 74px;
-    background-color: #e6e6e6 !important;
-    ont-family: "微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
+.desc_text pre{
+    font-size: 16px;
+    background-color: #f6f4ec;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: monospace;
+    padding: 2px;
+    line-height: 100%;
+    border: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
-.body-container{
-    position: relative;
-    margin-left: 7%;
-    margin-right: 7%;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color: #ffffff;
-    -webkit-border-bottom-right-radius:8px;
-    -webkit-border-bottom-left-radius:8px;
-    -moz-border-radius-bottomright:8px;
-    -moz-border-radius-bottomleft:8px;
-}
-
-/* 上一步 下一步按钮 */
-.preStepBtn{
-    bottom: 20px;
-    margin-top: 50px;
-    position: relative;
-}
-
-.previewBtn{
-    right: 210px;
-    bottom: 20px;
-    position: absolute;
+.problemItem
+{
+    color: #5A8CD8;
     display: inline-block;
 }
 
-.saveStepBtn{
-    right: 120px;
-    bottom: 20px;
-    position: absolute;
-    display: inline-block;
+.problemEditBar{
+    top: 108px;
+    width: 1155px;
+    z-index: 99999;
+    padding-left: 15px;
+    position: fixed;
 }
 
-.nextStepBtn{
-    right: 20px;
-    bottom: 20px;
-    position: absolute;
-    display: inline-block;
+/*---- 添加题解页面 ----*/
+.lblcode{
+    font-size: 20px;
+    font-weight: inherit;
 }
 
+.compiler{
+    width: 300px;
+    padding-left: 16px;
+}
+
+/*---- 上传文件的按钮 ----*/
 .fileinput-button {
     position: relative;
     overflow: hidden;
-    margin-right: 20px;
+    /*margin-right: 20px;*/
 }
 
 .fileinput-button input {
@@ -110,6 +164,12 @@ body{
     font-size: 200px;
     direction: ltr;
     cursor: pointer;
+}
+
+/*---- 下载文件的按钮 ----*/
+.downloadico{
+    font-size: 80px;
+    opacity: 0.7;
 }
 
 .downloadBtn{
@@ -130,11 +190,7 @@ body{
     cursor: pointer;
 }
 
-.downloadico{
-    font-size: 80px;
-    opacity: 0.7;
-}
-
+/*---- 帮助信息 ----*/
 .helpText{
     opacity: 0.3;
     font-size: 13px;
@@ -142,8 +198,3 @@ body{
     display: inline;
 }
 
-.problemItem
-{
-    color: #5A8CD8;
-    display: inline-block;
-}

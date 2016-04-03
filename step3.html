@@ -6,15 +6,16 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script>
         var config = null;
         var oTable = null;
         var chooser = null;
-        var message = null;
 
         var preBtn = null;
         var saveBtn = null;
@@ -116,13 +117,9 @@
                 err_message += "所有测试用例的总分不为100, 请重新设定";
             }
             if(err_message){
-                removeClass(message, "alert-danger");
-                addClass(message, "alert-danger");
-                message.innerHTML = err_message;
-                removeClass(message, "hidden");
+                showBanner("错误", err_message, "alert-danger");
                 return false;
             }else{
-                addClass(message, "hidden");
                 return true;
             }
         }
@@ -144,16 +141,10 @@
                     removeClass(oTable.rows[cnt], "success");
                     addClass(oTable.rows[cnt], "danger");
                     err_message += "第" + cnt +"个测试用例保存失败!<br/>";
-                    removeClass(message, "alert-danger");
-                    addClass(message, "alert-danger");
-                    message.innerHTML = err_message;
-                    removeClass(message, "hidden");
+                    showBanner("错误", err_message, "alert-danger");
                 });
                 if(!err_message){
-                    removeClass(message, "alert-danger");
-                    addClass(message, "alert-success");
-                    message.innerHTML = "保存成功！";
-                    removeClass(message, "hidden");
+                    showBanner("保存成功", "", "alert-success");
                     datafilesPath = PROBLEM_DATA_ROOT_PATH;
                 }
             }
@@ -166,7 +157,6 @@
             preBtn = document.getElementById("preBtn");
             saveBtn = document.getElementById("saveBtn");
             nextBtn = document.getElementById("nextBtn");
-            message = document.getElementById("message");
             chooser = document.querySelector('#fileupload');
             oTable = document.getElementById('testCaseTable');
 
@@ -185,18 +175,17 @@
                 infileName.length = 0;
                 outfileName.length = 0;
                 datafilesPath = filesPath;
-                addClass(message, "hidden");
                 getFiles(filesPath, apendText, addRow);
             }, false);
 
             getDataFiles(apendText, addRow, function(err){
                 alert(err);
             });
-
-            $('[data-toggle="popover"]').popover();
         };
 
         window.onload=function(){
+            $('.contentBody').height(($(window).height()-252));
+            $('[data-toggle="popover"]').popover();
             initStep();
             getConfig(function success(data){
                 config = data;
@@ -219,50 +208,45 @@
             <span name = "stepBtn" class="step">编辑题目内容</span>
             <span name = "stepBtn" class="step active">添加测试用例</span>
             <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step">确认</span>
+            <span name = "stepBtn" class="step">完成确认</span>
         </div>
-        <div class="col-md-6 col-md-offset-3">
-            <h2 class="center-block text-center">添加测试用例</h2>
-            <div id = "message" class="alert alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
+        <div class="contentBody">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="subhead">添加测试用例<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemTestcase" target="_blank"></a></div>
+                <div class="pull-right">
+                    <span class="btn btn-default fileinput-button">
+                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"> 选择文件夹</span>
+                        <input id="fileupload" type="file" nwdirectory />
+                    </span>
+                </div>
+                <table id="testCaseTable" class="table table-hover hidden">
+                    <thead>
+                        <tr>
+                            <th> <p style="display:inline">编号</p> </th>
+                            <th> <p style="display:inline">输入数据文件</p> </th>
+                            <th> <p style="display:inline">输出数据文件</p> </th>
+                            <th> <p style="display:inline">测试用例分值</p> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
-             <div class="btn-group pull-right">
-                <span class="btn btn-default fileinput-button">
-                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"> 选择文件夹</span>
-                    <input id="fileupload" type="file" nwdirectory />
-                </span>
-                <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="left" title="添加测试用例" data-content="添加用来测试提交的程序的数据, 要求所有的测试用例放在同一个文件夹中, 输入文件的扩展名必须为.in, 输出文件的扩展名必须为.out, 同时要求输入文件与输出文件的名称必须相同(此处的名称不包括扩展名), 测试用例中的测试点应当尽可能全面, 多方位测试程序的正确性, 如果要考察程序性能, 建议测试用例的数据量有小有大, 让暴力算法可得分但是得不到满分."></a>
-            </div>
-            <br/><br/>
-            <table id="testCaseTable" class="table table-hover hidden">
-                <thead>
-                    <tr>
-                        <th> <p style="display:inline">编号</p> </th>
-                        <th> <p style="display:inline">输入数据文件</p> </th>
-                        <th> <p style="display:inline">输出数据文件</p> </th>
-                        <th> <p style="display:inline">测试用例分值</p>
-                            <a class="glyphicon glyphicon-question-sign helpText" tabindex="0" role="button" aria-hidden="true" data-toggle="popover" data-trigger="focus" data-placement="right" title="测试用例分值" data-content="为每一个测试用例定一个分值, 默认的分值是按平均来设定的, 建议根据各个测试用例测试点的价值来重新设定(例如:比较难的测试点分值较高等), 分值的总分应该是100分."></a>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
         </div>
-    </div>
-    <div class="preStepBtn">
-        <a class="btn btn-success" href="step2.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-    </div>
-    <div class="saveStepBtn">
-        <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-    </div>
-    <div class="nextStepBtn">
-        <a class="btn btn-success" href="step4.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        <div class="divBtn col-md-12">
+            <div class="preStepBtn">
+                <a class="btn btn-success" href="step2.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+            </div>
+            <div class="saveStepBtn">
+                <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+            </div>
+            <div class="nextStepBtn">
+                <a class="btn btn-success" href="step4.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+            </div>
+        </div>
     </div>
 </div>
-<div class="footer">
+<div class="container footer">
     <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
     <div class="footer-text">
         <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>

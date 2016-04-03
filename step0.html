@@ -6,15 +6,19 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script type="text/javascript">
         function checkChange(){
             return true;
         }
+        
         window.onload=function(){
+            $('.contentBody').height(($(window).height()-252));
             initStep();
             getConfig(function success(data){
             },function error(err){
@@ -35,32 +39,35 @@
             <span name = "stepBtn" class="step">编辑题目内容</span>
             <span name = "stepBtn" class="step">添加测试用例</span>
             <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step">确认</span>
+            <span name = "stepBtn" class="step">完成确认</span>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-            <h2 class="center-block text-center">欢迎使用</h2>
-            <br/>
-            <ul class="h4">
-                <li>欢迎使用南京理工大学程序设计能力评测系统题目打包程序，该程序将引导您完成一道题目的创建，在创建结束以后，您将得到一个题目的压缩包，您只需要将其提交到评测系统(v1.0.0 或以上版本)上就可以完成一道题目的上传供学生练习使用.</li>
-                <br/>
-                <li>如果您在使用过程中发现了 bug 或着有意见或建议, 请通过<a href="https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues" target="_blank">这里</a>提交给我们，我们会尽力满足您的需求, 以便更好的为广大师生服务.</li>
-                <br/>
-                <li>您在使用过程中如果遇到问题可以随时点击程序中出现的 <span class="glyphicon glyphicon-question-sign helpText"></span> 按钮来获取帮助, 如仍然存在问题, 请联系我们 <a href="mailto:CatSystem@163.com">CatSystem@163.com</a>.</li>
-                <br/>
-                <li>您在编辑或更改任意一项后请及时保存, 以免您所做的工作丢失.</li>
-                <br/>
-                <li>现在您可以点击右下角的开始按钮开始您的题目创建工作.</li>
-            </ul>
+        <div class="contentBody">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="subhead">欢迎使用</div>
+                <ul class="h4">
+                    <li>欢迎使用南京理工大学程序设计能力评测系统题目打包程序，该程序将引导您完成一道题目的创建，在创建结束以后，您将得到一个题目的压缩包，您只需要将其提交到评测系统(v1.0.0 或以上版本)上就可以完成一道题目的上传供学生练习使用.</li>
+                    <br/>
+                    <li>如果您在使用过程中发现了 bug 或着有意见或建议, 请通过<a href="https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues" target="_blank"> 这里 </a>提交给我们，我们会尽力满足您的需求, 以便更好的为广大师生服务.</li>
+                    <br/>
+                    <li>初次使用强烈建议您阅读<a href="help.html" target='_blank'> 帮助页面 </a>来获取帮助. 特别是关于测试用例的格式要求, 您需要注意. 当然您也可以随时点击程序中的 <span class="glyphicon glyphicon-question-sign helpText"></span> 按钮来查看帮助页面.</li>
+                    <br/>
+                    <li>您在编辑或更改任意一项后请及时保存, 以免您所做的工作丢失.</li>
+                    <br/>
+                    <li>现在您可以点击右下角的开始按钮开始您的题目创建工作.</li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="preStepBtn" style="opacity:0">
-        <a class="btn btn-success" disabled="disabled" href="step0.html" role="button"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-    </div>
-    <div class="nextStepBtn">
-        <a class="btn btn-success" href="step1.html" role="button">开始<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        <div class="divBtn col-md-12">
+            <div class="nextStepBtn" style="opacity:0">
+                <a class="btn btn-success" disabled="disabled" href="step0.html" role="button"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+            </div>
+            <div class="nextStepBtn">
+                <a class="btn btn-success" href="step1.html" role="button">开始<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+            </div>
+        </div>
     </div>
 </div>
-<div class="footer">
+<div class="container footer">
     <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
     <div class="footer-text">
         <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
