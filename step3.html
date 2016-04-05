@@ -74,6 +74,7 @@
             if(name.length == 2){
                 if(name[1] == 'in') infileName[infileName.length] = text;
                 else if(name[1] == 'out') outfileName[outfileName.length] = text;
+                else alert(text + "文件命名格式错误！");
             }else alert(text + "文件命名格式错误！");
         }
 
@@ -171,7 +172,6 @@
             chooser.addEventListener("change", function(evt){
                 var files = this.files;
                 var filesPath = files[0].path;
-                if(filesPath == datafilesPath) return;
                 infileName.length = 0;
                 outfileName.length = 0;
                 datafilesPath = filesPath;
