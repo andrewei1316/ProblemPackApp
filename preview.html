@@ -6,6 +6,7 @@
     <title>预览题目</title>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+    <script src="static/js/jquery-1.11.0.min.js"></script>
     <script src="static/js/main.js"></script>
     <script>
         var hint = null;
@@ -19,7 +20,6 @@
         var outputdescription = null;
 
         function initData(){
-            // config = (JSON.parse(decodeURIComponent(location.search.substr(5))));
             config = window.opener.problemData;
             hint = document.getElementById("hint_text");
             message = document.getElementById("message");
@@ -69,82 +69,49 @@
         }
 
         window.onload = function(){
-                initData();
-                initMathJax();
+            $('.contentBody').height(($(window).height()-174));
+            initData();
+            initMathJax();
         }
     </script>
-    <style>
-        .desc_text
-        {
-            padding: 9px;
-            font-size: 16px;
-            word-wrap: break-word;
-            background-color: #f6f4ec;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            white-space:pre-wrap;
-        }
-        pre
-        {
-            font-size: 16px;
-            background-color: #f6f4ec;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            font-family: monospace;
-            padding: 2px;
-            line-height: 100%;
-            border: none;                                                                                                                             
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        h2
-        {
-           color: #5A8CD8;
-        }
-        #problem_edit_bar
-        {
-            top: 0px;
-            z-index: 99999;
-            margin: 0, auto;
-            position: fixed;
-        }
-    </style>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
             <hr/>
         </div>
-        <div id="problem_body"class="col-sm-12">
-            <h2 style="text-align:center;color:black;">题目内容预览</h2>
+    </div>
+    <div class="dBody" style="top:82px;bottom:10px">
+        <div class="col-sm-12">
+            <div class="subhead">题目内容预览</div>
             <div id="problem_description">
-                <h2>题目描述</h2>
+                <h2 class="problemItem">题目描述</h2>
                 <div class="desc_text" id="description_text"></div>
             </div>
             <div id="problem_input">
-                <h2>输入描述</h2>
+                <h2 class="problemItem">输入描述</h2>
                 <div class="desc_text" id="inputdescription_text"></div>
             </div>
             <div id="problem_output">
-                <h2>输出描述</h2>
+                <h2 class="problemItem">输出描述</h2>
                 <div class="desc_text" id="outputdescription_text"></div>
             </div>
             <div id="problem_sampleinput">
-                <h2>输入样例</h2>
+                <h2 class="problemItem">输入样例</h2>
                 <div class="desc_text" id="inputsample_text"><pre></pre></div>
             </div>
             <div id="problem_sampleoutput">
-                <h2>输出样例</h2>
+                <h2 class="problemItem">输出样例</h2>
                 <div class="desc_text" id="outputsample_text"><pre></pre></div>
             </div>
             <div id="problem_hint">
-                <h2>提示</h2>
+                <h2 class="problemItem">提示</h2>
                 <div class="desc_text" id="hint_text"></div>
             </div>
             <div id="problem_source">
-                <h2>来源</h2>
+                <h2 class="problemItem">来源</h2>
                 <div class="desc_text" id="source_text"></div>
             </div>
         </div>

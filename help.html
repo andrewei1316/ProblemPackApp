@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用帮助</title>
+    <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/helpPage/css/help.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
+    <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/helpPage/js/help.js"></script>
+    </script>
+</head>
+<body>
+<div class="body-container">
+    <div class="dHead">
+        <div class="navbar-wrapper maintitle" role="navigation">
+            <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="dBody" style="top:82px;bottom:10px">
+        <div class="subhead">使用帮助</div>
+        <div class="col-sm-4">
+            <ul id="accordion" class="accordion">
+                <li>
+                    <a href="#helpTitle" class="link"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>前言<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                </li>
+                <li>
+                    <div class="link"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>题目基本信息<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+                    <ul class="submenu">
+                        <li><a href="#problemTitle">标题</a></li>
+                        <li><a href="#problemTimeLimit">时间限制</a></li>
+                        <li><a href="#problemMemoryLimit">内存限制</a></li>
+                        <li><a href="#problemLevel">题目难度</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="link"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>题目内容<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+                    <ul class="submenu">
+                        <li><a href="#problemContentInfo">说明</a></li>
+                        <li><a href="#problemDescription">题目描述</a></li>
+                        <li><a href="#problemInputDescription">输入描述</a></li>
+                        <li><a href="#problemOutputDescription">输出描述</a></li>
+                        <li><a href="#problemInputSample">输入样例</a></li>
+                        <li><a href="#problemOutputSample">输出样例</a></li>
+                        <li><a href="#problemHint">提示</a></li>
+                        <li><a href="#problemSource">来源</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="link"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>测试用例<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></div>
+                    <ul class="submenu">
+                        <li><a href="#problemTestcaseFolder">文件夹说明</a></li>
+                        <li><a href="#problemTestcaseScore">分值</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#problemSolution" class="link"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>题解<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-8">
+            <a name="helpTitle"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">前言</div>
+                <div class="panel-body">
+                帮助页面主要介绍了本程序的使用方法和出题的注意事项,以帮助出题者出题, 如果在认真阅读本页面之后仍有疑问, 请联系我们 <a href="mailto:CatSystem@163.com">CatSystem@163.com</a>
+                </div>
+            </div>
+            <a name="problemBaseInfo"></a>
+            <h3>题目基本信息</h3>
+            <a name="problemTitle"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">标题</div>
+                <div class="panel-body">
+                    标题即为题目取一个名字, 可以为中文或者英文.
+                </div>
+            </div>
+            <a name="problemTimeLimit"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">时间限制</div>
+                <div class="panel-body">
+                时间限制是每个测试用例在测试用户提交的程序是否正确时所允许的最长运行时间, 当程序运行时间超出这个时间限制时, 平台将终止该程序的测试并返回超出时间限制. 时间限制要根据题目最大数据量以及解决该问题所用算法的复杂度来决定, 一般认为计算机的运行速度为10^8每秒. 注意此处的单位为MS, 时间限制不要少于1000MS.
+                </div>
+            </div>
+            <a name="problemMemoryLimit"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">内存限制</div>
+                <div class="panel-body">
+                内存限制是每个测试用例在测试用户提交的程序是否正确时所允许使用的最大内存, 当程序运行时间超出这个内存限制时, 平台将终止该程序的测试并返回超出内存限制. 内存限制要根据题目最大数据量以及解决该问题所用算法的数据结构来决定. 注意此处的单位为KB, 内存限制不要少于65536KB.
+                </div>
+            </div>
+            <a name="problemLevel"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">题目难度</div>
+                <div class="panel-body">
+                平台上的题目分为简单、较简单、一般、较难、难五个档次, 默认为一般. 出题时可以根据具体情况来标定题目的难度, 这个属性可以方便今后考试组题时难度的把握.
+                </div>
+            </div>
+            <a name="problemContent"></a>
+            <h3>题目内容</h3>
+            <a name="problemContentInfo"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">说明</div>
+                <div class="panel-body">
+                题目内容中的题目描述、输入描述、输出描述、提示和来源等处均已支持 MathJax 数学公式渲染引擎, 您可以在上述区域插入 Latex、MathML 和 ASCIIMathML 等标记语言, 有个比较简单的方法是, 您可以在网络上进行Latex的在线编辑(比如: <a href="https://www.codecogs.com/latex/eqneditor.php?lang=zh-cn" target="_blank">在线公式编辑器1</a>、<a href="http://zh.numberempire.com/texequationeditor/equationeditor.php" target="_blank">在线公式编辑器2</a>),然后将生成的代码复制到需要插入公式的区域. 注意: 您需要将生成的公式插入到两个符号之间才能正常渲染,主要有一下几种符号:<br/>
+                $ 公式 $ 或 \( 公式 \) 可以实现公式在行内显示.<br/>
+                $$ 公式 $$ 或 \[ 公式 \] 可以实现公式独占一行显示.<br/>
+                在插入公式后您可以点击页面下方的预览按钮来查看效果以便及时调整版面. 另外在该页面的顶部集成了一个富文本编辑器, 可以对于题目描述中的文字进行格式编辑(与Word类似), 也可以插入图片, 但要注意图片的大小请不要超过1MB. 
+                </div>
+            </div>
+            <a name="problemDescription"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">题目描述</div>
+                <div class="panel-body">
+                题目描述即题干, 需要描述清楚这个题目需要解决什么问题. 
+                </div>
+            </div>
+            <a name="problemInputDescription"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">输入描述</div>
+                <div class="panel-body">
+                输入描述需要重点说明测试数据的输入格式, 建议指明所有输入的变量的数据范围, 这将决定着解决题目时所选用的算法和数据结构有利于估计复杂度.
+                </div>
+            </div>
+            <a name="problemOutputDescription"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">输出描述</div>
+                <div class="panel-body">
+                输出描述需要重点说明程序输出数据的格式
+                </div>
+            </div>
+            <a name="problemInputSample"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">输入样例</div>
+                <div class="panel-body">
+                输入样例要保证与输入描述中规定的输入格式和数据范围相同, 样例最好具有典型性, 可以帮助理解题意.
+                </div>
+            </div>
+            <a name="problemOutputSample"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">输出样例</div>
+                <div class="panel-body">
+                输出样例要保证与输出描述中规定的输出格式相同.
+                </div>
+            </div>
+            <a name="problemHint"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">提示</div>
+                <div class="panel-body">
+                提示主要针对题意的理解做一些补充的说明, 也可以对样例进行说明(例如输入的数据是如何得到输出的数据的),可填可不填.
+                </div>
+            </div>
+            <a name="problemSource"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">来源</div>
+                <div class="panel-body">
+                类似于题目的版权声明, 可填可不填.
+                </div>
+            </div>
+            <a name="problemTestcase"></a>
+            <h3>测试用例</h3>
+            <a name="problemTestcaseFolder"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">文件夹说明</div>
+                <div class="panel-body">
+                添加用来测试提交的程序的数据, 要求所有的测试用例放在同一个文件夹中, 输入文件的扩展名必须为.in, 输出文件的扩展名必须为.out, 同时要求输入文件与输出文件的名称必须相同(此处的名称不包括扩展名), 测试用例中的测试点应当尽可能全面, 多方位测试程序的正确性, 如果要考察程序性能, 建议测试用例的数据量有小有大, 让暴力算法可得分但是得不到满分.
+                </div>
+            </div>
+            <a name="problemTestcaseScore"></a>
+            <div class="panel panel-success">
+                <div class="panel-heading">分值</div>
+                <div class="panel-body">
+                为每一个测试用例定一个分值, 默认的分值是按平均来设定的, 建议根据各个测试用例测试点的价值来重新设定(例如:比较难的测试点分值较高等), 分值的总分应该是100分.
+                </div>
+            </div>
+            <a name="problemSolution"></a>
+            <h3>题解</h3>
+            <div class="panel panel-success">
+                <div class="panel-heading">题解</div>
+                <div class="panel-body">
+                目前支持的语言有C语言、C++语言、JAVA语言, 可以根据需要来填写参考的解题程序和参考程序所用的思路.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
+    <div class="footer-text">
+        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
+        <p class="footer-p">
+            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
+        </p>
+    </div>
+</div>
+</body>
+</html>

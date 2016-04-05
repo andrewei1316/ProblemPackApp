@@ -13,13 +13,13 @@ var INIT_CONFIG_DATA = {
 	"description":"",
 	"inputdescription":"",
 	"outputdescription":"",
-	"inputsample":"<pre></pre>",
-	"outputsample":"<pre></pre>",
+	"inputsample":"",
+	"outputsample":"",
 	"datacount":0,
 	"datascore":{},
 	"hint":"",
 	"source":"",
-	"complier":"cpp",
+	"compiler":"cpp",
 	"solutioncode":"",
 	"solutiontext":""
 }
@@ -47,6 +47,29 @@ function initStep(){
         	if(checkChange()) window.location.href = "step" + this.index +".html";
         }
     }
+}
+
+/**
+ * 弹出提示框
+ * @param  { string } tipTitle   [ 弹出框的标题 ]
+ * @param  { string } tipContent [ 弹出框的内容 ]
+ * @param  { string } tipClass   [ 弹出框的样式 ]
+ * @return {[type]}            [description]
+ */
+function showBanner(tipTitle, tipContent, tipClass){
+	var time = 2000;
+	if(tipClass == 'alert-danger') time = 4000;
+	$("body").showbanner({
+		title : tipTitle,
+		icon : "static/images/favicon.png",
+		content : tipContent,
+		addclass : tipClass,
+		show_duration : 200,
+		duration : time,
+		hide_duration : 500,
+		handle: false,
+		html: true
+	});
 }
 
 /**

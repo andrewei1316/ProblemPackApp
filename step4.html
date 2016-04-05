@@ -6,20 +6,21 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="static/CodeMirror/codemirror.css"/>
     <script src="static/CodeMirror/codemirror.js"></script>
     <script src="static/CodeMirror/clike.js"></script>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script>
         var config = null;
-        var message = null;
         var codeArea = null;
         var codeEdit = null;
         var solution = null;
-        var oComplier = null;
+        var oCompiler = null;
 
         var preBtn = null;
         var saveBtn = null;
@@ -27,7 +28,7 @@
 
         function checkChange(){
             var flag = true;
-            if(oComplier.value != config.complier) flag = false;
+            if(oCompiler.value != config.compiler) flag = false;
             if(codeEdit.getValue() != "" && codeEdit.getValue() != config.solutioncode) flag = false;
             if(solution.value!= "" && solution.value != config.solutiontext) flag = false;
             if(!flag) return confirm("您做了更改且没有保存, 离开后更改将会失效, 确认离开?");
@@ -35,22 +36,16 @@
         }
 
         function saveFunc(){
-            config.complier = oComplier.value;
+            config.compiler = oCompiler.value;
             if(codeEdit.getValue() != "")
                 config.solutioncode = codeEdit.getValue();
             if(solution.value != "")
                 config.solutiontext = solution.value;
 
             saveConfig(config, function(){
-                removeClass(message, "alert-danger");
-                addClass(message, "alert-success");
-                message.innerHTML = "保存成功！";
-                removeClass(message, "hidden");
+                showBanner("保存成功", "", "alert-success");
             }, function(err){
-                removeClass(message, "alert-success");
-                addClass(message, "alert-danger");
-                message.innerHTML = "保存失败, 请重试！<br/>" + err;
-                removeClass(message, "hidden");
+                showBanner("错误", "保存失败, 请重试!", "alert-danger");
             });
         }
 
@@ -59,9 +54,8 @@
             codeArea = document.getElementById('code');
             saveBtn = document.getElementById("saveBtn");
             nextBtn = document.getElementById("nextBtn");
-            message = document.getElementById("message");
             solution = document.getElementById("solution");
-            oComplier = document.getElementById("complier");
+            oCompiler = document.getElementById("compiler");
 
             codeEdit = CodeMirror.fromTextArea(codeArea, {
                         mode:"text/x-c++src",
@@ -70,7 +64,7 @@
                         scrollbarStyle:null,
                         cursorScrollMargin:10,
             });
-            oComplier.value = config.complier;
+            oCompiler.value = config.compiler;
             solution.value = config.solutiontext;
             if(config.solutioncode != null) codeEdit.setValue(config.solutioncode);
 
@@ -92,21 +86,10 @@
             });
         };
     </script>
-    <style>
-        .submit-setting
-        {
-            width: 300px;
-            padding-left: 16px;
-        }
-        #lblcode{
-            font-size: 20px;
-            font-weight: inherit;
-        }
-    </style>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -116,41 +99,41 @@
             <span name = "stepBtn" class="step">编辑题目内容</span>
             <span name = "stepBtn" class="step">添加测试用例</span>
             <span name = "stepBtn" class="step active">添加题解</span>
-            <span name = "stepBtn" class="step">确认</span>
+            <span name = "stepBtn" class="step">完成确认</span>
         </div>
+    </div>
+    <div class="dBody">
         <div class="col-md-12">
-            <h2 class="center-block text-center">添加题解</h2>
-            <div id = "message" class="alert alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-            </div>
-            <div class="btn-group submit-setting">
-                <label id="lblcode">编程语言</label><br/>
-                <select class="form-control " id="complier" name="compiler">
+            <div class="subhead">添加题解<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemSolution" target="_blank"></a></div>
+            <div class="btn-group compiler">
+                <label class="lblcode">编程语言</label>
+                <br/>
+                <select class="form-control compiler" id="compiler" name="compiler">
                     <option name="compiler_select" value="c">C语言</option>
                     <option name="compiler_select" value="cpp">C++语言</option>
                     <option name="compiler_select" value="java">JAVA语言</option>
                 </select>
             </div> <br/><br/>
             <div class="col-md-7">
-                <label id="lblcode">参考程序</label>
+                <label class="lblcode">参考程序</label>
                 <textarea id="code" rows="25"></textarea>
             </div>
             <div class="col-md-5">
-                <label id="lblcode">解题思路</label>
+                <label class="lblcode">解题思路</label>
                 <textarea class="form-control" id="solution" rows="25"></textarea>
             </div>
         </div>
     </div>
-    <div class="preStepBtn">
-        <a class="btn btn-success" href="step3.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-    </div>
-    <div class="saveStepBtn">
-        <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-    </div>
-    <div class="nextStepBtn">
-        <a class="btn btn-success" href="step5.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step3.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
+        <div class="saveStepBtn">
+            <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+        </div>
+        <div class="nextStepBtn">
+            <a class="btn btn-success" href="step5.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
     </div>
 </div>
 <div class="footer">

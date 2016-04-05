@@ -6,15 +6,16 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script>
         var hint = null;
         var source = null;
         var config = null;
-        var message = null;
         var description = null;
         var inputsample = null;
         var outputsample = null;
@@ -50,21 +51,14 @@
             config.outputdescription = outputdescription.innerHTML;
 
             saveConfig(config, function(){
-                removeClass(message, "alert-danger");
-                addClass(message, "alert-success");
-                message.innerHTML = "保存成功！";
-                removeClass(message, "hidden");
+                showBanner("保存成功", "", "alert-success");
             }, function(err){
-                removeClass(message, "alert-success");
-                addClass(message, "alert-danger");
-                message.innerHTML = "保存失败, 请重试！<br/>" + err;
-                removeClass(message, "hidden");
+                showBanner("错误", err_message, "alert-danger");
             });
         }
 
         function initData(){
             hint = document.getElementById("hint_text");
-            message = document.getElementById("message");
             source = document.getElementById("source_text");
             preViewBtn = document.getElementById("preViewBtn");
             description = document.getElementById("description_text");
@@ -82,10 +76,8 @@
             description.innerHTML = config.description;
             inputdescription.innerHTML = config.inputdescription;
             outputdescription.innerHTML = config.outputdescription;
-            if(config.inputsample)
-                inputsample.innerHTML = config.inputsample;
-            if(config.outputsample)
-                outputsample.innerHTML = config.outputsample;
+            inputsample.innerHTML = config.inputsample;
+            outputsample.innerHTML = config.outputsample;
 
             preBtn.onclick = nextBtn.onclick = function(){
                 return checkChange();
@@ -118,46 +110,10 @@
             });
         }
     </script>
-    <style>
-        .desc_text
-        {
-            padding: 9px;
-            font-size: 16px;
-            word-wrap: break-word;
-            background-color: #f6f4ec;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            white-space:pre-wrap;
-        }
-        pre
-        {
-            font-size: 16px;
-            background-color: #f6f4ec;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            font-family: monospace;
-            padding: 2px;
-            line-height: 100%;
-            border: none;                                                                                                                             
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        h2
-        {
-           color: #5A8CD8;
-        }
-        #problem_edit_bar
-        {
-            top: 0px;
-            z-index: 99999;
-            margin: 0, auto;
-            position: fixed;
-        }
-    </style>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -167,60 +123,58 @@
             <span name = "stepBtn" class="step active">编辑题目内容</span>
             <span name = "stepBtn" class="step">添加测试用例</span>
             <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step">确认</span>
+            <span name = "stepBtn" class="step">完成确认</span>
         </div>
-        <div id="problem_edit_bar">
+    </div>
+    <div class="dBody">
+        <div class="problemEditBar">
             <div id="nic_panel"></div>
         </div>
-        <div class="hidden" id="problem_edit_mode"></div>
-        <div id="problem_body"class="col-sm-12">
-            <h2 style="text-align:center;color:black;">编辑题目内容</h2>
-            <div id = "message" class="alert alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-            </div>
+        <div class="col-md-12">
+            <div class="subhead" style="padding-top:13px">编辑题目内容<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemContent" target="_blank"></a></div>
             <div id="problem_description">
-                <h2>题目描述</h2>
+                <h3 class="problemItem">题目描述</h3>
                 <div class="desc_text" id="description_text"></div>
             </div>
             <div id="problem_input">
-                <h2>输入描述</h2>
+                <h3 class="problemItem">输入描述</h3>
                 <div class="desc_text" id="inputdescription_text"></div>
             </div>
             <div id="problem_output">
-                <h2>输出描述</h2>
+                <h3 class="problemItem">输出描述</h3>
                 <div class="desc_text" id="outputdescription_text"></div>
             </div>
             <div id="problem_sampleinput">
-                <h2>输入样例</h2>
-                <div class="desc_text" id="inputsample_text"><pre></pre></div>
+                <h3 class="problemItem">输入样例</h3>
+                <div class="desc_text" id="inputsample_text"></div>
             </div>
             <div id="problem_sampleoutput">
-                <h2>输出样例</h2>
-                <div class="desc_text" id="outputsample_text"><pre></pre></div>
+                <h3 class="problemItem">输出样例</h3>
+                <div class="desc_text" id="outputsample_text"></div>
             </div>
             <div id="problem_hint">
-                <h2>提示</h2>
+                <h3 class="problemItem">提示</h3>
                 <div class="desc_text" id="hint_text"></div>
             </div>
             <div id="problem_source">
-                <h2>来源</h2>
+                <h3 class="problemItem">来源</h3>
                 <div class="desc_text" id="source_text"></div>
             </div>
         </div>
     </div>
-    <div class="preStepBtn">
-        <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-    </div>
-    <div class="previewBtn">
-        <button class="btn btn-default" id="preViewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
-    </div>
-    <div class="saveStepBtn">
-        <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-    </div>
-    <div class="nextStepBtn">
-        <a class="btn btn-success" href="step3.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step1.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
+        <div class="previewBtn">
+            <button class="btn btn-default" id="preViewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
+        </div>
+        <div class="saveStepBtn">
+            <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+        </div>
+        <div class="nextStepBtn">
+            <a class="btn btn-success" href="step3.html" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
     </div>
 </div>
 <div class="footer">

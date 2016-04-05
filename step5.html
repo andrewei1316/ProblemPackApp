@@ -6,8 +6,10 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script>
@@ -37,16 +39,11 @@
                 var files = this.files;
                 var filesPath = files[0].path;
                 downloadproblem(filesPath, function success(){
-                    removeClass(message, "alert-danger");
-                    addClass(message, "alert-success");
-                    message.innerHTML = "保存成功！";
-                    removeClass(message, "hidden");
+                    showBanner("保存成功", "", "alert-success");
                     repeatFunc();
                 }, function error(err){
-                    removeClass(message, "alert-success");
-                    addClass(message, "alert-danger");
-                    message.innerHTML = "校验失败, 请仔细检查一下项目！<br/>" + err;
-                    removeClass(message, "hidden");
+                    err_message = "校验失败, 请仔细检查一下项目:<br/>" + err;
+                    showBanner("错误", err_message, "alert-danger");
                 });
              });
 
@@ -54,10 +51,6 @@
                 deleteAllFiles(PROBLEM_ROOT_PATH);
                 window.location.href = "step1.html";
             }
-
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
         }
         window.onload=function(){
             initStep();
@@ -71,8 +64,8 @@
     </script>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -82,15 +75,12 @@
             <span name = "stepBtn" class="step">编辑题目内容</span>
             <span name = "stepBtn" class="step">添加测试用例</span>
             <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step active">确认</span>
+            <span name = "stepBtn" class="step active">完成确认</span>
         </div>
+    </div>
+    <div class="dBody">
         <div class="col-md-8 col-md-offset-2">
-            <h2 class="center-block text-center">完成</h2>
-            <div id = "message" class="alert alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-            </div>
+            <div class="subhead">完成确认</div>
             <br/>
             <ul class="h4">
                 <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
@@ -116,8 +106,10 @@
             <br/>
         </div>
     </div>
-    <div class="preStepBtn">
-        <a class="btn btn-success" href="step4.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step4.html" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
     </div>
 </div>
 <div class="footer">

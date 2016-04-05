@@ -6,15 +6,16 @@
     <title>欢迎使用</title>
     <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/banneralert.min.js"></script>
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/main.js"></script>
     <script>
         var title = null;
         var level = null;
         var config = null;
-        var message = null;
         var timelimit = null;
         var memorylimit = null;
         
@@ -66,15 +67,11 @@
                 removeClass(level.parentNode, "has-error");
                 addClass(level.parentNode, "has-success");
             }
-            if(!err_message){
-                addClass(message, "hidden");
-                return true;
-            }else{
-                removeClass(message, "alert-success");
-                addClass(message, "alert-danger");
-                message.innerHTML = err_message;
-                removeClass(message, "hidden");
+            if(err_message){
+                showBanner("错误", err_message, "alert-danger");
                 return false;
+            }else{
+                return true;
             }
         }
 
@@ -85,15 +82,9 @@
                 config.memorylimit = memorylimit.value;
                 config.level = level.value;
                 saveConfig(config, function(){
-                    removeClass(message, "alert-danger");
-                    addClass(message, "alert-success");
-                    message.innerHTML = "保存成功！";
-                    removeClass(message, "hidden");
+                    showBanner("保存成功", "", "alert-success");
                 }, function(err){
-                    removeClass(message, "alert-success");
-                    addClass(message, "alert-danger");
-                    message.innerHTML = "保存失败, 请重试！<br/>" + err;
-                    removeClass(message, "hidden");
+                    showBanner("错误", "保存失败, 请重试!", "alert-danger");
                 });
             }
         }
@@ -107,7 +98,6 @@
             preBtn = document.getElementById("preBtn");
             saveBtn = document.getElementById("saveBtn");
             nextBtn = document.getElementById("nextBtn");
-            message = document.getElementById("message");
 
             title.value = config.title;
             timelimit.value = config.timelimit;
@@ -136,8 +126,8 @@
     </script>
 </head>
 <body>
-<div class = "body-container container">
-    <div class="row">
+<div class = "body-container">
+    <div class="dHead">
         <div class="navbar-wrapper maintitle" role="navigation">
             <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
         </div>
@@ -147,15 +137,12 @@
             <span name = "stepBtn" class="step">编辑题目内容</span>
             <span name = "stepBtn" class="step">添加测试用例</span>
             <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step">确认</span>
+            <span name = "stepBtn" class="step">完成确认</span>
         </div>
+    </div>
+    <div class="dBody">
         <div class="col-md-4 col-md-offset-4">
-            <h2 class="center-block text-center">题目基本信息</h2>
-            <div id = "message" class="alert alert-dismissable hidden">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    &times;
-                </button>
-            </div>
+            <div class="subhead">题目基本信息<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemBaseInfo" target="_blank"></a></div>
             <div class="form-group">
                 <label>标题</label>
                 <input type="text" class="form-control" id="title_text" placeholder="请输入题目的标题">
@@ -180,14 +167,16 @@
             </div>
         </div>
     </div>
-    <div class="preStepBtn">
-        <a class="btn btn-success" href="step0.html" role="button" id = "preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
-    </div>
-    <div class="saveStepBtn">
-        <button class="btn btn-info" id = "saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-    </div>
-    <div class="nextStepBtn">
-        <a class="btn btn-success" href="step2.html" role="button" id = "nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    <div class="dBtn">
+        <div class="preStepBtn">
+            <a class="btn btn-success" href="step0.html" role="button" id = "preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></a>
+        </div>
+        <div class="saveStepBtn">
+            <button class="btn btn-info" id = "saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+        </div>
+        <div class="nextStepBtn">
+            <a class="btn btn-success" href="step2.html" role="button" id = "nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+        </div>
     </div>
 </div>
 <div class="footer">
@@ -200,4 +189,6 @@
     </div>
 </div>
 </body>
+<script>
+</script>
 </html>
