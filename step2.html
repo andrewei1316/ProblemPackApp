@@ -76,10 +76,8 @@
             description.innerHTML = config.description;
             inputdescription.innerHTML = config.inputdescription;
             outputdescription.innerHTML = config.outputdescription;
-            if(config.inputsample)
-                inputsample.innerHTML = config.inputsample;
-            if(config.outputsample)
-                outputsample.innerHTML = config.outputsample;
+            inputsample.innerHTML = config.inputsample;
+            outputsample.innerHTML = config.outputsample;
 
             preBtn.onclick = nextBtn.onclick = function(){
                 return checkChange();
@@ -148,11 +146,11 @@
             </div>
             <div id="problem_sampleinput">
                 <h3 class="problemItem">输入样例</h3>
-                <div class="desc_text" id="inputsample_text"><pre></pre></div>
+                <div class="desc_text" id="inputsample_text"></div>
             </div>
             <div id="problem_sampleoutput">
                 <h3 class="problemItem">输出样例</h3>
-                <div class="desc_text" id="outputsample_text"><pre></pre></div>
+                <div class="desc_text" id="outputsample_text"></div>
             </div>
             <div id="problem_hint">
                 <h3 class="problemItem">提示</h3>

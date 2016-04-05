@@ -126,24 +126,12 @@ body{
 .desc_text{
     padding: 6px;
     font-size: 16px;
-    word-wrap: break-word;
-    background-color: #f6f4ec;
-    border: 1px solid #cccccc;
     border-radius: 4px;
-    white-space:pre-wrap;
-}
-
-.desc_text pre{
-    font-size: 16px;
-    background-color: #f6f4ec;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-family: monospace;
-    padding: 0px;
-    line-height: 100%;
-    border: none;
     white-space: pre-wrap;
     word-wrap: break-word;
+    font-family: monospace;
+    background-color: #f6f4ec;
+    border: 1px solid #cccccc;
 }
 
 .problemItem
