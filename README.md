@@ -1,2 +1,2 @@
 # ProblemPackApp
-为OJ/CAT题目离线打包的工具
+为OJ/CAT平台开发的题目打包工具

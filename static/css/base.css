@@ -60,6 +60,8 @@ body{
 /*----- 各个步骤的标题 -----*/
 .subhead{
     margin-top: 10px;
+    padding-top: 13px;
+    padding-bottom: 10px;
     font-size: 30px;
     display: block;
     text-align: center;

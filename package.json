@@ -1,10 +1,10 @@
 {
   "name": "ProblemPackApp",
-  "main": "step0.html",
+  "main": "main.html",
   "nodejs": true,
   "window": {
     "title": "题目打包程序",
-    "toolbar": true,
+    "toolbar": false,
     "position": "center",
     "resizable": true,
     "fullscreen": false,

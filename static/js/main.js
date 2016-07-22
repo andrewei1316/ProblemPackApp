@@ -20,8 +20,547 @@ var INIT_CONFIG_DATA = {
 	"hint":"",
 	"source":"",
 	"compiler":"cpp",
-	"solutioncode":"",
+	"solutioncode":"#include <iostream>\nusing namespace std;\n\nint main(){\n    return 0;\n}\n",
 	"solutiontext":""
+}
+
+// 全局配置文件
+// var timer = null;
+var config = null;
+
+// 按钮相关
+var preBtn = null;
+var nextBtn = null;
+var saveBtn = null;
+var stepBtn = null;
+var stepDiv = null;
+var curPage = null;
+var allPage = null;
+var previewBtn = null;
+var preStepBtn = null;
+var nextStepBtn = null;
+var saveStepBtn = null;
+var previewStepBtn = null;
+
+// 题目基本信息相关
+var title = null;
+var level = null;
+var timelimit = null;
+var memorylimit = null;
+
+// 题目描述相关
+var hint = null;
+var source = null;
+var problemData = null;
+var description = null;
+var inputsample = null;
+var outputsample = null;
+var inputdescription = null;
+var outputdescription = null;
+
+// 测试数据相关
+var oTable = null;
+var chooser = null;
+var infileName = [];
+var outfileName = [];
+var datafilesPath = null;
+
+// 题解相关
+var codeArea = null;
+var codeEdit = null;
+var solution = null;
+var compiler = null;
+
+// 完成检查相关
+var hintDiv = null;
+var repeatBtn = null;
+var saveProBtn = null;
+var downloadBtn = null;
+
+/**
+ * 添加测试用例表格行
+ */
+function addRow(){
+    // 文件个数校验
+    if(infileName.length != outfileName.length){
+        alert("输入文件个数与输出文件个数不一致！");
+        return;
+    }
+    if(infileName.length == 0) return;
+
+    // 按名称排一下序 
+    infileName.sort();
+    outfileName.sort();
+
+    // 将原来的table元素删掉
+    removeClass(oTable, "hidden");
+    var len = oTable.rows.length;
+    for(var i = len - 1; i > 0; i--)
+        oTable.deleteRow(i);
+
+    // 重新生成table
+    len = infileName.length;
+    var aveInt = Math.floor(100 / len);
+    for(var i = 0; i < len; i++){
+        var oTr = oTable.insertRow();
+        var oTd0 = oTr.insertCell(-1);
+        oTd0.innerHTML = i;
+
+        var oTd1 = oTr.insertCell(-1);
+        oTd1.innerHTML = infileName[i];
+
+        var oTd2 = oTr.insertCell(-1);
+        oTd2.innerHTML = outfileName[i];
+
+        if(infileName[i].split('.')[0] != outfileName[i].split('.')[0]){
+            alert("输入输出文件的文件名称不一致, 请检查!");
+            oTr.className = "danger";
+        }
+        if(i == len - 1) aveInt = (100 - aveInt * (len - 1));
+        if(datafilesPath == PROBLEM_DATA_ROOT_PATH)
+            aveInt = config.datascore[infileName[i].split('.')[0]];
+        var oTd3 = oTr.insertCell(-1);
+        oTd3.innerHTML = "<input class='form-control' type='text' value = '"+ aveInt +"'/>";
+    }
+}
+
+/*
+ * 读取测试用例文件名
+ */
+function appendText(text) {
+    var name = text.split('.');
+    if(name.length == 2){
+        if(name[1] == 'in') infileName[infileName.length] = text;
+        else if(name[1] == 'out') outfileName[outfileName.length] = text;
+        else alert(text + "文件命名格式错误！");
+    }else alert(text + "文件命名格式错误！");
+}
+
+/*
+ * 初始化数据
+ */
+function initAll(){
+
+	function initData(){
+		// 题目基本信息相关
+        title.value = config.title;
+        level.value = config.level;
+        timelimit.value = config.timelimit;
+        memorylimit.value = config.memorylimit;
+
+        // 题目描述相关
+        hint.innerHTML = config.hint;
+        source.innerHTML = config.source;
+        description.innerHTML = config.description;
+        inputdescription.innerHTML = config.inputdescription;
+        outputdescription.innerHTML = config.outputdescription;
+        inputsample.innerHTML = config.inputsample;
+        outputsample.innerHTML = config.outputsample;
+
+        // 题目测试数据相关
+        infileName.length = 0;
+        outfileName.length = 0;
+        datafilesPath = PROBLEM_DATA_ROOT_PATH;
+        getDataFiles(appendText, addRow, function(err){
+            alert(err);
+        });
+
+        // 题解相关
+        compiler.value = config.compiler;
+        solution.value = config.solutiontext;
+        codeEdit.setValue(config.solutioncode);
+	}
+
+    curPage = 0;
+    allPage = 6;
+
+    // 按钮相关
+    preBtn = document.getElementById("preBtn");
+    nextBtn = document.getElementById("nextBtn");
+    saveBtn = document.getElementById("saveBtn");
+    stepBtn = document.getElementsByName("stepBtn");
+    stepDiv = document.getElementsByName("stepDiv");
+    previewBtn = document.getElementById("previewBtn");
+    preStepBtn = document.getElementById("preStepBtn");
+    nextStepBtn = document.getElementById("nextStepBtn");
+    saveStepBtn = document.getElementById("saveStepBtn");
+    previewStepBtn = document.getElementById("previewStepBtn");
+
+    // 题目基本信息相关
+    level = document.getElementById("proLevel");
+    title = document.getElementById("title");
+    timelimit = document.getElementById("timelimit");
+    memorylimit = document.getElementById("memorylimit");
+
+    // 题目描述相关
+    hint = document.getElementById("hint_text");
+    source = document.getElementById("source_text");
+    preViewBtn = document.getElementById("preViewBtn");
+    description = document.getElementById("description_text");
+    inputsample = document.getElementById("inputsample_text");
+    outputsample = document.getElementById("outputsample_text");
+    inputdescription = document.getElementById("inputdescription_text");
+    outputdescription = document.getElementById("outputdescription_text");
+
+    // 测试数据相关
+    chooser = document.querySelector('#fileupload');
+    oTable = document.getElementById('testCaseTable');
+
+    // 题解相关
+    codeArea = document.getElementById('code');
+    solution = document.getElementById("solution");
+    compiler = document.getElementById("compiler");
+    codeEdit = CodeMirror.fromTextArea(codeArea, {
+                mode:"text/x-c++src",
+                lineNumbers:false,
+                indentUnit:4,
+                scrollbarStyle:null,
+                cursorScrollMargin:10,
+    });
+
+    // 完成检查相关
+    hintDiv = document.getElementById('hintDiv');
+    repeatDiv = document.getElementById('repeatDiv');
+    repeatBtn = document.getElementById('repeatBtn');
+    saveProBtn = document.getElementById('saveProBtn');
+    downloadBtn = document.getElementById("downloadBtn");
+
+    getConfig(function success(data){
+    	config = data;
+    	initData();
+    }, function error(err){
+    	alert(err);
+    });
+}
+
+/*
+ * 切换页面时控制按钮的隐藏和显示
+ */
+function btnShowAndHidden(curPage){
+    // console.log('cur = '+ curPage);
+    if(curPage == 0){
+        addClass(preStepBtn, "hidden");
+    }else{
+        removeClass(preStepBtn, "hidden");
+    }
+    if(curPage == allPage - 1){
+        addClass(nextStepBtn, "hidden");
+        addClass(saveStepBtn, "hidden");
+    }else{
+        removeClass(nextStepBtn, "hidden");
+    }
+    if(curPage == 2){
+        removeClass(previewStepBtn, "hidden");
+    }else{
+        addClass(previewStepBtn, "hidden");
+    }
+    if(curPage == 0 || curPage == allPage - 1){
+        addClass(saveStepBtn, "hidden");
+    }else{
+        removeClass(saveStepBtn, "hidden");
+    }
+    if(curPage == allPage - 1 && config.title != ""){
+	    saveProBtn.nwsaveas = config.title +".zip";
+    }
+}
+
+/*
+ * 页面跳转时隐藏和显示 div 和 step
+ */
+function jumpToPage(curPage, tarPage){
+    addClass(stepDiv[curPage], "hidden");
+    removeClass(stepBtn[curPage], "active");
+    removeClass(stepDiv[tarPage], "hidden");
+    addClass(stepBtn[tarPage], "active");
+    btnShowAndHidden(tarPage);
+}
+
+/**
+ * 添加事件
+ */
+function addEvent(){
+
+    preBtn.onclick = function(){
+        if(curPage == 0) return;
+        jumpToPage(curPage, curPage - 1);
+        curPage -= 1;
+    }
+
+    nextBtn.onclick = function(){
+        if(curPage == allPage - 1) return;
+        jumpToPage(curPage, curPage + 1);
+        curPage += 1;
+    }
+
+    saveBtn.onclick = function(){
+    	saveCurPage(curPage, false);
+    }
+
+    for(var i = 0; i < stepBtn.length; i++){
+        stepBtn[i].index = i;
+        stepBtn[i].onclick = function(){
+            jumpToPage(curPage, this.index);
+            curPage = this.index;
+        }
+    }
+
+    timer = setInterval(function(){
+    	// saveCurPage(curPage, true);
+    }, 30000);
+
+    previewBtn.onclick = function(){
+        problemData = new Object(); 
+        problemData.hint = hint.innerHTML;
+        problemData.source = source.innerHTML;
+        problemData.description = description.innerHTML;
+        problemData.inputsample = inputsample.innerHTML;
+        problemData.outputsample = outputsample.innerHTML;
+        problemData.inputdescription = inputdescription.innerHTML;
+        problemData.outputdescription = outputdescription.innerHTML;
+        window.open ('preview.html','预览','height=700,width=1240,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+    }
+
+    chooser.addEventListener("change", function(evt){
+        var files = this.files;
+        var filesPath = files[0].path;
+        infileName.length = 0;
+        outfileName.length = 0;
+        datafilesPath = filesPath;
+        getFiles(filesPath, appendText, addRow);
+    }, false);
+
+    downloadBtn.onclick = function(){
+        if(checkChange()){
+            var save = $("#saveProBtn");
+            save.change(function(evt){
+                var filesPath = $(this).val();
+                downloadproblem(filesPath, function success(){
+                    showBanner("保存成功", "", "alert-success");
+                    removeClass(hintDiv, 'hidden');
+                    removeClass(repeatDiv, 'hidden');
+                }, function error(err){
+                    err_message = "校验失败, 请仔细检查一下项目:<br/>" + err;
+                    showBanner("错误", err_message, "alert-danger");
+                });
+                $(this).val('');
+            });
+            save.trigger("click");
+        }
+    }
+
+    repeatBtn.onclick = function(){
+        deleteAllFiles(PROBLEM_ROOT_PATH);
+        window.location.reload();
+    }
+}
+
+/**
+ * 保存当前页面信息
+ * @param  {int}
+ * @param  {Boolean}
+ * @return {void}
+ */
+function saveCurPage(curPage, isAuto){
+	if(curPage == 1){
+		savePage1(isAuto);
+	}else if(curPage == 2){
+		savePage2(isAuto);
+	}else if(curPage == 3){
+		savePage3(isAuto);
+	}else if(curPage == 4){
+		savePage4(isAuto);
+	}
+}
+
+/**
+ * 以下几个函数均为校验和保存某页的信息
+ * @param  {Boolean}
+ * @return {void}
+ */
+function savePage1(isAuto){
+    function checkAvail(){
+        var err_message = "";
+        if(!title.value){
+            removeClass(title.parentNode, "has-success");
+            addClass(title.parentNode, "has-error");
+            err_message += "标题不能为空<br/>";
+        }else{
+            removeClass(title.parentNode, "has-error");
+            addClass(title.parentNode, "has-success");
+        }
+        if(isNaN(timelimit.value) || timelimit.value < 1000 || timelimit.value > 50000){
+            removeClass(timelimit.parentNode, "has-success");
+            addClass(timelimit.parentNode, "has-error");
+            err_message += "时间限制范围应为[1000, 50000]<br/>";
+        }else{
+            removeClass(timelimit.parentNode, "has-error");
+            addClass(timelimit.parentNode, "has-success");
+        }
+        if(isNaN(memorylimit.value) || memorylimit.value < 65536 || memorylimit.value > 262144){
+            removeClass(memorylimit.parentNode, "has-success");
+            addClass(memorylimit.parentNode, "has-error");
+            err_message += "内存限制范围为[65536, 262144]<br/>";
+        }else{
+            removeClass(memorylimit.parentNode, "has-error");
+            addClass(memorylimit.parentNode, "has-success");
+        }
+        if(isNaN(level.value) || level.value < 1 || level.value > 5){
+            removeClass(level.parentNode, "has-success");
+            addClass(level.parentNode, "has-error");
+            err_message += "题目难度请从选项框中选择<br/>";
+        }else{
+            removeClass(level.parentNode, "has-error");
+            addClass(level.parentNode, "has-success");
+        }
+        if(err_message){
+            showBanner("错误", err_message, "alert-danger");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    if(checkAvail()){
+        config.title = title.value;
+        config.timelimit = timelimit.value;
+        config.memorylimit = memorylimit.value;
+        config.level = level.value;
+        saveConfig(config, function(){
+            showBanner("保存成功", "", "alert-success");
+        }, function(err){
+            showBanner("错误", "保存失败, 请重试!", "alert-danger");
+        });
+    }
+}
+
+function savePage2(isAuto){
+    config.hint = hint.innerHTML;
+    config.source = source.innerHTML;
+    config.description = description.innerHTML;
+    config.inputsample = inputsample.innerHTML;
+    config.outputsample = outputsample.innerHTML;
+    config.inputdescription = inputdescription.innerHTML;
+    config.outputdescription = outputdescription.innerHTML;
+
+    saveConfig(config, function(){
+        showBanner("保存成功", "", "alert-success");
+    }, function(err){
+        showBanner("错误", err_message, "alert-danger");
+    });
+}
+
+function savePage3(isAuto){
+	function checkAvail(){
+        var sum = 0;
+        var err_message = "";
+        for(var i = 0; i < infileName.length; i++){
+            var oTr = oTable.rows[i+1];
+            var flag = true;
+            if(oTr.cells[1].innerHTML.split('.')[0] != oTr.cells[2].innerHTML.split('.')[0]){
+                flag = false;
+                err_message += "表格第"+ (i+1) +"行的输入输出文件名称不一致，请检查<br/>";
+            }
+            if(isNaN(oTable.rows[i+1].cells[3].firstChild.value)){
+                flag = false;
+                err_message += "表格第"+ (i+1) +"行的测试用例分值不是一个整数，请检查<br/>";
+            }else sum += Number(oTable.rows[i+1].cells[3].firstChild.value);
+
+            if(!flag){
+                removeClass(oTr, "success");
+                addClass(oTr, "danger");
+            }else{
+                removeClass(oTr, "danger");
+                addClass(oTr, "success");
+            }
+        }
+        if(sum != 100){
+            err_message += "所有测试用例的总分不为100, 请重新设定";
+        }
+        if(err_message){
+            showBanner("错误", err_message, "alert-danger");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+	if(checkAvail()){
+        err_message = "";
+        var len = infileName.length;
+        config.datacount = len;
+        config.datascore = {};
+        for(var i = 0; i < len; i++){
+            config.datascore[infileName[i].split('.')[0]] = Number(oTable.rows[i+1].cells[3].firstChild.value);
+        }
+        var cnt = 0;
+        saveDataFiles(config, datafilesPath, function success(){
+            cnt = cnt + 1;
+        }, function error(err){
+            cnt = cnt + 1;
+            removeClass(oTable.rows[cnt], "success");
+            addClass(oTable.rows[cnt], "danger");
+            err_message += "第" + cnt +"个测试用例保存失败!<br/>";
+            showBanner("错误", err_message, "alert-danger");
+        });
+        if(!err_message){
+            showBanner("保存成功", "", "alert-success");
+            datafilesPath = PROBLEM_DATA_ROOT_PATH;
+        }
+    }
+}
+
+function savePage4(isAuto){
+    config.compiler = compiler.value;
+    if(codeEdit.getValue() != "")
+        config.solutioncode = codeEdit.getValue();
+    if(solution.value != "")
+        config.solutiontext = solution.value;
+
+    saveConfig(config, function(){
+        showBanner("保存成功", "", "alert-success");
+    }, function(err){
+        showBanner("错误", "保存失败, 请重试!", "alert-danger");
+    });
+}
+
+function checkChange(){
+    var flag = true;
+	err_message = "";
+    if(title.value != config.title) flag = false;
+    if(level.value != config.level) flag = false;
+    if(timelimit.value != config.timelimit) flag = false;
+    if(memorylimit.value != config.memorylimit) flag = false;
+    if(!flag) err_message += "题目基本信息, ";
+
+    flag = true;
+    if(hint.innerHTML != config.hint) flag = false;
+    if(source.innerHTML != config.source) flag = false;
+    if(description.innerHTML != config.description) flag = false;
+    if(inputsample.innerHTML != config.inputsample) flag = false;
+    if(outputsample.innerHTML != config.outputsample) flag = false;
+    if(inputdescription.innerHTML != config.inputdescription) flag = false;
+    if(outputdescription.innerHTML != config.outputdescription) flag = false;
+    if(!flag) err_message += "编辑题目描述, ";
+
+    flag = true;
+    if(config.datacount != infileName.length) flag = false;
+    else{
+        for(var i = 0; i < config.datacount; i++){
+            if(config.datascore[infileName[i].split('.')[0]] != oTable.rows[i+1].cells[3].firstChild.value) flag = false;
+        }
+    }
+    if(datafilesPath != null && datafilesPath != PROBLEM_DATA_ROOT_PATH) flag = false;
+    if(!flag) err_message += "添加测试用例, ";
+
+    flag = true;
+    if(compiler.value != config.compiler) flag = false;
+    if(codeEdit.getValue() != "" && codeEdit.getValue() != config.solutioncode) flag = false;
+    if(solution.value != "" && solution.value != config.solutiontext) flag = false;
+    if(!flag) err_message += "添加题解, "
+
+    if(err_message != ""){
+    	return confirm("以下信息在更改后未保存, 确定忽略更改吗?\n\n" + err_message);
+    }else return true;
 }
 
 /**
@@ -29,24 +568,8 @@ var INIT_CONFIG_DATA = {
  * @return { string } [程序的根目录]
  */
 function getRootPath(){
-	var path = require('path');
-	var nwPath = process.execPath;
-	var rootPath = path.dirname(nwPath);
-	return rootPath;
-}
-
-/**
- * 初始化导航条的点击事件
- * @return {[type]} [description]
- */
-function initStep(){
-    var steps = document.getElementsByName("stepBtn");
-    for(var i = 0; i < steps.length; i++){
-        steps[i].index = i;
-        steps[i].onclick=function(){
-        	if(checkChange()) window.location.href = "step" + this.index +".html";
-        }
-    }
+	var os = require("os");
+	return os.tmpdir();
 }
 
 /**
@@ -61,7 +584,6 @@ function showBanner(tipTitle, tipContent, tipClass){
 	if(tipClass == 'alert-danger') time = 4000;
 	$("body").showbanner({
 		title : tipTitle,
-		icon : "static/images/favicon.png",
 		content : tipContent,
 		addclass : tipClass,
 		show_duration : 200,
@@ -321,7 +843,7 @@ function deleteAllFiles(filesPath){
  * @return {[type]}               [description]
  */
 function saveDataFiles(configData, dataFilePath, successFunc, errorFunc){
-	fs = require("fs");
+	var fs = require("fs");
 	configDataString = JSON.stringify(configData);
 	saveFile(PROBLEM_CONFIG_ROOT_PATH, PROBLEM_CONFIG_PATH, configDataString, function success(){
 		if(dataFilePath == PROBLEM_DATA_ROOT_PATH){return; }
@@ -346,7 +868,7 @@ function saveDataFiles(configData, dataFilePath, successFunc, errorFunc){
  * @return {[type]}             [description]
  */
 function checkAll(successFunc, errorFunc){
-	err_message = "";
+	var err_message = "";
 	fs = require("fs");
 	getConfig(function success(configData){
 		if(configData.title == null || configData.title == "")
@@ -418,7 +940,7 @@ function zipFiles(detPath, successFunc, errorFunc){
 }
 
 /**
- * [downloadproblema 下载题目压缩包]
+ * [downloadproblem 下载题目压缩包]
  * @param  { string } detPath     [文件保存位置]
  * @param  { function } successFunc [成功后调用的函数]
  * @param  { function } errorFunc   [失败后调用的函数]
@@ -436,7 +958,7 @@ function downloadproblem(detPath, successFunc, errorFunc){
  * @return { string }        [图片的base64编码]
  */
 function getPictionBase64(picUrl){
-	fs = require("fs");
+	var fs = require("fs");
 	var data = fs.readFileSync(picUrl);
 	if(data != null) return data.toString('base64');
 	else return null;
