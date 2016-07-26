@@ -18,7 +18,6 @@
     <script>
         function startMain(){
             initAll();
-            addEvent();
         }
     </script>
 </head>
@@ -41,9 +40,8 @@
         <div name="stepDiv" id="step0">
             <div class="col-md-8 col-md-offset-2">
                 <div class="subhead">欢迎使用</div>
-                <br/>
                 <ul class="h4">
-                    <li>欢迎使用南京理工大学程序设计能力评测系统题目打包程序，该程序将引导您完成一道题目的创建，在创建结束以后，您将得到一个题目的压缩包，您只需要将其提交到评测系统(v1.0.0 或以上版本)上就可以完成一道题目的上传供学生练习使用.</li>
+                    <li>欢迎使用南京理工大学程序设计能力评测系统题目打包程序，该程序将引导您完成一道题目的创建，在创建结束以后，您将得到一个题目的压缩包，您只需要将其提交到评测系统上即可完成一道题目的上传.</li>
                     <br/>
                     <li>如果您在使用过程中发现了 bug 或着有意见或建议, 请通过<a href="https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues" target="_blank"> 这里 </a>提交给我们，我们会尽力满足您的需求, 以便更好的为广大师生服务.</li>
                     <br/>
@@ -51,7 +49,14 @@
                     <br/>
                     <li>您在编辑或更改任意一项后请及时保存, 以免您所做的工作丢失.</li>
                     <br/>
-                    <li>现在您可以点击右下角的按钮开始您的题目创建工作.</li>
+                    <li>现在您可以点击右下角的开始按钮创建新的题目, 或者点击该按钮编辑之前创建过的题目
+                        <div class="btn-group">
+                            <span class="btn btn-default" id="uploadBtn" data-toggle="tooltip" data-placement="bottom" title="上传已有压缩包">
+                                <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                            </span>
+                            <input type="file" accept=".zip" id="uploadProBtn" style="display: none"/>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -166,7 +171,6 @@
         <div name="stepDiv" id="step5" class="hidden">
             <div class="col-md-8 col-md-offset-2">
                 <div class="subhead">完成确认</div>
-                <br/>
                 <ul class="h4">
                     <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
                     <br/>

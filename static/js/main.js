@@ -1,10 +1,10 @@
 // 定义全局变量
-var ROOT_PATH = getRootPath();
-var PROBLEM_ROOT_PATH = ROOT_PATH + "/problem";
-var PROBLEM_CONFIG_FILENAME = "/config.json";
-var PROBLEM_CONFIG_ROOT_PATH = PROBLEM_ROOT_PATH;
-var PROBLEM_DATA_ROOT_PATH = PROBLEM_ROOT_PATH +"/data";
-var PROBLEM_CONFIG_PATH = PROBLEM_CONFIG_ROOT_PATH + PROBLEM_CONFIG_FILENAME;
+var ROOT_PATH = null;
+var PROBLEM_ROOT_PATH = null;
+var PROBLEM_CONFIG_FILENAME = null;
+var PROBLEM_CONFIG_ROOT_PATH = null;
+var PROBLEM_DATA_ROOT_PATH = null;
+var PROBLEM_CONFIG_PATH = null;
 var INIT_CONFIG_DATA = {
 	"title": "",
 	"timelimit": 1000,
@@ -36,10 +36,12 @@ var stepBtn = null;
 var stepDiv = null;
 var curPage = null;
 var allPage = null;
+var uploadBtn = null;
 var previewBtn = null;
 var preStepBtn = null;
 var nextStepBtn = null;
 var saveStepBtn = null;
+var uploadProBtn = null;
 var previewStepBtn = null;
 
 // 题目基本信息相关
@@ -136,40 +138,40 @@ function appendText(text) {
     }else alert(text + "文件命名格式错误！");
 }
 
+function initData(){
+    // 题目基本信息相关
+    title.value = config.title;
+    level.value = config.level;
+    timelimit.value = config.timelimit;
+    memorylimit.value = config.memorylimit;
+
+    // 题目描述相关
+    hint.innerHTML = config.hint;
+    source.innerHTML = config.source;
+    description.innerHTML = config.description;
+    inputdescription.innerHTML = config.inputdescription;
+    outputdescription.innerHTML = config.outputdescription;
+    inputsample.innerHTML = config.inputsample;
+    outputsample.innerHTML = config.outputsample;
+
+    // 题目测试数据相关
+    infileName.length = 0;
+    outfileName.length = 0;
+    datafilesPath = PROBLEM_DATA_ROOT_PATH;
+    getDataFiles(appendText, addRow, function(err){
+        alert(err);
+    });
+
+    // 题解相关
+    compiler.value = config.compiler;
+    solution.value = config.solutiontext;
+    codeEdit.setValue(config.solutioncode);
+}
+
 /*
  * 初始化数据
  */
 function initAll(){
-
-	function initData(){
-		// 题目基本信息相关
-        title.value = config.title;
-        level.value = config.level;
-        timelimit.value = config.timelimit;
-        memorylimit.value = config.memorylimit;
-
-        // 题目描述相关
-        hint.innerHTML = config.hint;
-        source.innerHTML = config.source;
-        description.innerHTML = config.description;
-        inputdescription.innerHTML = config.inputdescription;
-        outputdescription.innerHTML = config.outputdescription;
-        inputsample.innerHTML = config.inputsample;
-        outputsample.innerHTML = config.outputsample;
-
-        // 题目测试数据相关
-        infileName.length = 0;
-        outfileName.length = 0;
-        datafilesPath = PROBLEM_DATA_ROOT_PATH;
-        getDataFiles(appendText, addRow, function(err){
-            alert(err);
-        });
-
-        // 题解相关
-        compiler.value = config.compiler;
-        solution.value = config.solutiontext;
-        codeEdit.setValue(config.solutioncode);
-	}
 
     curPage = 0;
     allPage = 6;
@@ -180,10 +182,12 @@ function initAll(){
     saveBtn = document.getElementById("saveBtn");
     stepBtn = document.getElementsByName("stepBtn");
     stepDiv = document.getElementsByName("stepDiv");
+    uploadBtn = document.getElementById("uploadBtn");
     previewBtn = document.getElementById("previewBtn");
     preStepBtn = document.getElementById("preStepBtn");
     nextStepBtn = document.getElementById("nextStepBtn");
     saveStepBtn = document.getElementById("saveStepBtn");
+    uploadProBtn = document.getElementById("uploadProBtn");
     previewStepBtn = document.getElementById("previewStepBtn");
 
     // 题目基本信息相关
@@ -225,9 +229,12 @@ function initAll(){
     saveProBtn = document.getElementById('saveProBtn');
     downloadBtn = document.getElementById("downloadBtn");
 
+    getRootPath();
+
     getConfig(function success(data){
     	config = data;
     	initData();
+        addEvent();
     }, function error(err){
     	alert(err);
     });
@@ -267,12 +274,13 @@ function btnShowAndHidden(curPage){
 /*
  * 页面跳转时隐藏和显示 div 和 step
  */
-function jumpToPage(curPage, tarPage){
+function jumpToPage(tarPage){
     addClass(stepDiv[curPage], "hidden");
     removeClass(stepBtn[curPage], "active");
     removeClass(stepDiv[tarPage], "hidden");
     addClass(stepBtn[tarPage], "active");
     btnShowAndHidden(tarPage);
+    curPage = tarPage;
 }
 
 /**
@@ -282,14 +290,12 @@ function addEvent(){
 
     preBtn.onclick = function(){
         if(curPage == 0) return;
-        jumpToPage(curPage, curPage - 1);
-        curPage -= 1;
+        jumpToPage(curPage - 1);
     }
 
     nextBtn.onclick = function(){
         if(curPage == allPage - 1) return;
-        jumpToPage(curPage, curPage + 1);
-        curPage += 1;
+        jumpToPage(curPage + 1);
     }
 
     saveBtn.onclick = function(){
@@ -299,8 +305,30 @@ function addEvent(){
     for(var i = 0; i < stepBtn.length; i++){
         stepBtn[i].index = i;
         stepBtn[i].onclick = function(){
-            jumpToPage(curPage, this.index);
-            curPage = this.index;
+            jumpToPage(this.index);
+        }
+    }
+
+    uploadBtn.onclick = function(){
+        if(confirm("此操作将会导致您正在编辑的内容丢失，是否继续？")){
+            var upload = $("#uploadProBtn");
+            upload.change(function(evt){
+                var filePath = $(this).val();
+                uploadProblem(filePath, function success(){
+                    getConfig(function success(data){
+                        config = data;
+                        initData();
+                        addEvent();
+                        jumpToPage(1);
+                    }, function error(err){
+                        alert(err);
+                    });
+                }, function error(data){
+                    alert(data);
+                });
+                $(this).val('');
+            });
+            upload.trigger('click');
         }
     }
 
@@ -569,7 +597,13 @@ function checkChange(){
  */
 function getRootPath(){
 	var os = require("os");
-	return os.tmpdir();
+    var path = require("path");
+    ROOT_PATH = os.tmpdir();
+    PROBLEM_ROOT_PATH = path.join(ROOT_PATH, "problem");
+    PROBLEM_CONFIG_FILENAME = "config.json";
+    PROBLEM_CONFIG_ROOT_PATH = PROBLEM_ROOT_PATH;
+    PROBLEM_DATA_ROOT_PATH = path.join(PROBLEM_ROOT_PATH, "data");
+    PROBLEM_CONFIG_PATH = path.join(PROBLEM_CONFIG_ROOT_PATH, PROBLEM_CONFIG_FILENAME);
 }
 
 /**
@@ -937,6 +971,29 @@ function zipFiles(detPath, successFunc, errorFunc){
 	}, function error(readErr){
 		errorFunc(readErr);
 	});
+}
+
+function uploadProblem(srcPath, successFunc, errorFunc){
+    if(srcPath == '') return;
+    var fs = require("fs");
+    var path = require("path");
+    var jsZip = require("jszip");
+    var zip = new jsZip();
+    var cnt = -1;
+    fs.readFile(srcPath, function(err, data) {
+        if (err) errorFunc(err);
+        deleteAllFiles(PROBLEM_ROOT_PATH);
+        zip.folder(srcPath).load(data);
+        Object.keys(zip.files).forEach(function(filename){
+            cnt += 1;
+            if(cnt){
+                var content = zip.files[filename].asNodeBuffer();
+                var dest = path.join(PROBLEM_ROOT_PATH, filename.slice(srcPath.length));
+                writeFileSync(fs, dest, content);
+            }
+        });
+        successFunc();
+    });
 }
 
 /**
