@@ -17,6 +17,7 @@
     <script src="static/js/main.js"></script>
     <script>
         function startMain(){
+            initReset();
             initAll();
         }
     </script>
@@ -49,7 +50,13 @@
                     <br/>
                     <li>您在编辑或更改任意一项后请及时保存, 以免您所做的工作丢失.</li>
                     <br/>
-                    <li>现在您可以点击右下角的开始按钮创建新的题目, 或者点击该按钮编辑之前创建过的题目
+                    <li>如果您发现该程序按钮失效且重启无法恢复时，请点击该按钮重置
+                        <div class="btn-group">
+                            <button class="btn btn-default " id="reset" data-toggle="tooltip" data-placement="bottom" title="重置"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+                        </div>
+                    </li>
+                    <br/>
+                    <li>现在您可以点击右下角的按钮创建新的题目, 或者点击该按钮编辑之前创建过的题目
                         <div class="btn-group">
                             <span class="btn btn-default" id="uploadBtn" data-toggle="tooltip" data-placement="bottom" title="上传已有压缩包">
                                 <span class="glyphicon glyphicon-open" aria-hidden="true"></span>

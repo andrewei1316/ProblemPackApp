@@ -20,7 +20,7 @@ var INIT_CONFIG_DATA = {
 	"hint":"",
 	"source":"",
 	"compiler":"cpp",
-	"solutioncode":"#include <iostream>\nusing namespace std;\n\nint main(){\n    return 0;\n}\n",
+	"solutioncode":"",
 	"solutiontext":""
 }
 
@@ -78,6 +78,20 @@ var hintDiv = null;
 var repeatBtn = null;
 var saveProBtn = null;
 var downloadBtn = null;
+
+/**
+ * 全部初始化
+ * @return {[type]} [description]
+ */
+function initReset(){
+    var resetBtn = document.getElementById("reset");
+    resetBtn.onclick = function(){
+        if(confirm('重置会删除正在编辑的所有数据，是否继续?')){
+            deleteAllFiles(PROBLEM_ROOT_PATH);
+            document.location.reload();
+        }
+    }
+}
 
 /**
  * 添加测试用例表格行
@@ -216,7 +230,7 @@ function initAll(){
     compiler = document.getElementById("compiler");
     codeEdit = CodeMirror.fromTextArea(codeArea, {
                 mode:"text/x-c++src",
-                lineNumbers:false,
+                lineNumbers:true,
                 indentUnit:4,
                 scrollbarStyle:null,
                 cursorScrollMargin:10,
@@ -268,6 +282,9 @@ function btnShowAndHidden(curPage){
     }
     if(curPage == allPage - 1 && config.title != ""){
 	    saveProBtn.nwsaveas = config.title +".zip";
+    }
+    if(curPage == 4){
+        codeEdit.refresh();
     }
 }
 
@@ -356,6 +373,14 @@ function addEvent(){
         datafilesPath = filesPath;
         getFiles(filesPath, appendText, addRow);
     }, false);
+
+    compiler.onchange = function(){
+        if(compiler.value == 'java'){
+            codeEdit.setOption("mode", "text/x-java");
+        }else{
+            codeEdit.setOption("mode", "text/x-c++src");
+        }
+    }
 
     downloadBtn.onclick = function(){
         if(checkChange()){
@@ -539,10 +564,8 @@ function savePage3(isAuto){
 
 function savePage4(isAuto){
     config.compiler = compiler.value;
-    if(codeEdit.getValue() != "")
-        config.solutioncode = codeEdit.getValue();
-    if(solution.value != "")
-        config.solutiontext = solution.value;
+    config.solutioncode = codeEdit.getValue();
+    config.solutiontext = solution.value;
 
     saveConfig(config, function(){
         showBanner("保存成功", "", "alert-success");
