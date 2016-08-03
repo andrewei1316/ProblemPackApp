@@ -229,11 +229,13 @@ function initAll(){
     solution = document.getElementById("solution");
     compiler = document.getElementById("compiler");
     codeEdit = CodeMirror.fromTextArea(codeArea, {
-                mode:"text/x-c++src",
-                lineNumbers:true,
                 indentUnit:4,
+                lineNumbers:true,
+                lineWrapping:true,
                 scrollbarStyle:null,
-                cursorScrollMargin:10,
+                mode:"text/x-c++src",
+                styleActiveLine:true,
+                cursorScrollMargin:10
     });
 
     // 完成检查相关
