@@ -237,6 +237,7 @@ function initAll(){
                 styleActiveLine:true,
                 cursorScrollMargin:10
     });
+    codeEdit.setSize('auto', '512px');
 
     // 完成检查相关
     hintDiv = document.getElementById('hintDiv');
