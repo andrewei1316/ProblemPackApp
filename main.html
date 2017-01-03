@@ -3,91 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎使用</title>
-    <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
+    <title>南京理工大学程序设计能力评测系统题目打包程序</title>
+
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
-    <link rel="stylesheet" type="text/css" href="static/css/banneralert.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/step.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/codemirror.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="static/CodeMirror/codemirror.css"/>
-    <script src="static/CodeMirror/codemirror.js"></script>
-    <script src="static/CodeMirror/clike.js"></script>
-    <script src="static/js/jquery-1.11.0.min.js"></script>
-    <script src="static/js/banneralert.min.js"></script>
-    <script src="static/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/pnotify.custom.min.css"/>
+
+    <script src="static/js/libs/jquery-1.11.0.min.js"></script>
+    <script src="static/js/libs/bootstrap.min.js"></script>
+
+    <script src="static/js/tools/CodeMirror/codemirror.js"></script>
+    <script src="static/js/tools/CodeMirror/active-line.js"></script>
+    <script src="static/js/tools/CodeMirror/clike.js"></script>
+    <script src="static/js/tools/jquery.nicescroll.min.js"></script>
+    <script src="static/js/tools/pnotify.custom.min.js"></script>
+
+    <script src="static/js/modules/app.js"></script>
+    <script src="static/js/modules/config.js"></script>
+    <script src="static/js/modules/filemanager.js"></script>
+    <script src="static/js/modules/pnotifyservice.js"></script>
+
     <script src="static/js/main.js"></script>
-    <script>
-        function startMain(){
-            initAll();
-            addEvent();
-        }
-    </script>
+
 </head>
 <body>
-<div class = "body-container">
-    <div class="dHead">
-        <div class="navbar-wrapper maintitle" role="navigation">
-            <h1>南京理工大学程序设计能力评测系统题目打包程序</h1>
-        </div>
-        <div class="six steps large step-navbar">
-            <span name = "stepBtn" class="step active">开始</span>
-            <span name = "stepBtn" class="step">题目基本信息</span>
-            <span name = "stepBtn" class="step">编辑题目内容</span>
-            <span name = "stepBtn" class="step">添加测试用例</span>
-            <span name = "stepBtn" class="step">添加题解</span>
-            <span name = "stepBtn" class="step">完成确认</span>
-        </div>
+<!--     <div class="dTitle">
+        <span class="icon-title">
+            <img src="static/images/favicon.png"/>
+            南京理工大学程序设计能力评测系统题目打包程序
+        </span>
+        <span class="window-button">
+        </span>
     </div>
-    <div class="dBody">
-        <div name="stepDiv" id="step0">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="subhead">欢迎使用</div>
-                <br/>
-                <ul class="h4">
-                    <li>欢迎使用南京理工大学程序设计能力评测系统题目打包程序，该程序将引导您完成一道题目的创建，在创建结束以后，您将得到一个题目的压缩包，您只需要将其提交到评测系统(v1.0.0 或以上版本)上就可以完成一道题目的上传供学生练习使用.</li>
-                    <br/>
-                    <li>如果您在使用过程中发现了 bug 或着有意见或建议, 请通过<a href="https://github.com/NJUST-FishTeam/NJUST_OnlineJudge_M6_BugReport/issues" target="_blank"> 这里 </a>提交给我们，我们会尽力满足您的需求, 以便更好的为广大师生服务.</li>
-                    <br/>
-                    <li>初次使用强烈建议您阅读<a href="help.html" target='_blank'> 帮助页面 </a>来获取帮助. 特别是关于测试用例的格式要求, 您需要注意. 当然您也可以随时点击程序中的 <span class="glyphicon glyphicon-question-sign helpText"></span> 按钮来查看帮助页面.</li>
-                    <br/>
-                    <li>您在编辑或更改任意一项后请及时保存, 以免您所做的工作丢失.</li>
-                    <br/>
-                    <li>现在您可以点击右下角的按钮开始您的题目创建工作.</li>
-                </ul>
+ -->
+     <div class = "body-container">
+        <div class="dHead">
+            <div class="six steps large step-navbar">
+                <span name = "stepBtn" class="step active">开始</span>
+                <span name = "stepBtn" class="step">题目基本信息</span>
+                <span name = "stepBtn" class="step">编辑题目内容</span>
+                <span name = "stepBtn" class="step">添加测试用例</span>
+                <span name = "stepBtn" class="step">添加题解</span>
+                <span name = "stepBtn" class="step">完成确认</span>
             </div>
-        </div>
-        <div name="stepDiv" id="step1" class="hidden">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="subhead">题目基本信息<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemBaseInfo" target="_blank"></a></div>
-                <div class="form-group">
-                    <label>标题</label>
-                    <input type="text" class="form-control" id="title" placeholder="请输入题目的标题">
-                </div>
-                <div class="form-group">
-                    <label>时间限制(MS)</label>
-                    <input type="text" class="form-control" id="timelimit" placeholder="请输入时间限制">
-                </div>
-                <div class="form-group">
-                    <label>内存限制(KB)</label>
-                    <input type="text" class="form-control" id="memorylimit" placeholder="请输入内存限制">
-                </div>
-                <div class="form-group">
-                    <label>题目难度</label>
-                    <select class="form-control" title="选择题目难度" id="proLevel">
-                        <option name="problem_level" id="prolevel" autocomplete="off" value="1">简单</option>
-                        <option name="problem_level" id="prolevel" autocomplete="off" value="2">较简单</option>
-                        <option name="problem_level" id="prolevel" autocomplete="off" value="3">一般</option>
-                        <option name="problem_level" id="prolevel" autocomplete="off" value="4">较难</option>
-                        <option name="problem_level" id="prolevel" autocomplete="off" value="5">难</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div name="stepDiv" id="step2" class="hidden">
-            <div class="problemEditBar">
+            <div id="problem_edit_bar" class="problemEditBar hidden">
                 <div id="nic_panel"></div>
             </div>
-            <div class="col-md-12">
-                <div class="subhead">编辑题目内容<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemContent" target="_blank"></a></div>
+        </div>
+        <div class="dBody">
+            <div name="stepDiv" id="step0">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="subhead">欢迎使用</div>
+                    <div class="startPageText">
+                        您可以从下面三个功能中任选一个来开始:
+                        <ol>
+                            <li>创建新题目：从零开始创建一个新的题目.</li>
+                            <li>上传压缩包：上传一个已经存在的题目压缩包并重新编辑.</li>
+                            <!-- <li>恢复上次数据：将上次未来的及保存的数据恢复(程序默认每30秒备份一次, 当然您也可以随时点击保存按钮保存当前数据). -->
+                            <li>重置该程序：当程序发生错误并且重启无效时，可以通过此按钮来恢复( 注意：这会使得当前程序中的所有数据丢失).</li>
+                        </ol>
+                    </div>
+                    <div class="startPageBtn">
+                        <div class="btn-group">
+                            <button class="btn btn-default bigBtn" id="newBtn" data-toggle="tooltip" data-placement="bottom" title="创建新题目"><span class="glyphicon glyphicon-plus bigico"></span></button>
+                        </div>
+                        <div class="btn-group">
+                            <span class="btn btn-default bigBtn" id="proUploadSpan" data-toggle="tooltip" data-placement="bottom" title="上传压缩包">
+                                <span class="glyphicon glyphicon-open bigico" aria-hidden="true"></span>
+                            </span>
+                            <input type="file" accept=".zip" id="proUploadBtn" style="display: none"/>
+                        </div>
+                        <div class="btn-group hidden">
+                            <button class="btn btn-default bigBtn" id="restoreBtn" data-toggle="tooltip" data-placement="bottom" title="还原上次数据"><span class="glyphicon glyphicon-repeat bigico"></span></button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-default bigBtn" id="reset" data-toggle="tooltip" data-placement="bottom" title="重置该程序"><span class="glyphicon glyphicon-refresh bigico"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div name="stepDiv" id="step1" class="hidden">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="subhead">题目基本信息</div>
+                    <div class="form-group">
+                        <label>标题</label>
+                        <input type="text" class="form-control" id="title" placeholder="请输入题目的标题">
+                    </div>
+                    <div class="form-group">
+                        <label>时间限制(MS)</label>
+                        <input type="text" class="form-control" id="timelimit" placeholder="请输入时间限制">
+                    </div>
+                    <div class="form-group">
+                        <label>内存限制(KB)</label>
+                        <input type="text" class="form-control" id="memorylimit" placeholder="请输入内存限制">
+                    </div>
+                    <div class="form-group">
+                        <label>题目难度</label>
+                        <select class="form-control" title="选择题目难度" id="proLevel">
+                            <option name="problem_level" id="prolevel" autocomplete="off" value="1">简单</option>
+                            <option name="problem_level" id="prolevel" autocomplete="off" value="2">较简单</option>
+                            <option name="problem_level" id="prolevel" autocomplete="off" value="3">一般</option>
+                            <option name="problem_level" id="prolevel" autocomplete="off" value="4">较难</option>
+                            <option name="problem_level" id="prolevel" autocomplete="off" value="5">难</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div name="stepDiv" id="step2" class="hidden">
+                <div class="subhead">编辑题目内容</div>
                 <div id="problem_description">
                     <h3 class="problemItem">题目描述</h3>
                     <div class="desc_text" id="description_text"></div>
@@ -109,41 +134,39 @@
                     <div class="desc_text" id="outputsample_text"></div>
                 </div>
                 <div id="problem_hint">
-                    <h3 class="problemItem">提示</h3>
+                    <h3 class="problemItem">解答提示</h3>
                     <div class="desc_text" id="hint_text"></div>
                 </div>
                 <div id="problem_source">
-                    <h3 class="problemItem">来源</h3>
+                    <h3 class="problemItem">来源(作者)</h3>
                     <div class="desc_text" id="source_text"></div>
                 </div>
             </div>
-        </div>
-        <div name="stepDiv" id="step3" class="hidden">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="subhead">添加测试用例<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemTestcase" target="_blank"></a></div>
-                <div class="pull-right">
-                    <span class="btn btn-default fileinput-button">
-                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"> 选择文件夹</span>
-                        <input id="fileupload" type="file" nwdirectory />
-                    </span>
+            <div name="stepDiv" id="step3" class="hidden">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="subhead">添加测试用例</div>
+                    <div class="pull-right">
+                        <span class="btn btn-default fileinput-button" id="dataUploadSpan">
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"> 选择文件夹</span>
+                            <input id="dataUploadBtn" type="file" nwdirectory />
+                        </span>
+                    </div>
+                    <table id="testCaseTable" class="table table-hover hidden">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>输入数据文件</th>
+                                <th>输出数据文件</th>
+                                <th>测试用例分值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-                <table id="testCaseTable" class="table table-hover hidden">
-                    <thead>
-                        <tr>
-                            <th> <p style="display:inline">编号</p> </th>
-                            <th> <p style="display:inline">输入数据文件</p> </th>
-                            <th> <p style="display:inline">输出数据文件</p> </th>
-                            <th> <p style="display:inline">测试用例分值</p> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
             </div>
-        </div>
-        <div name="stepDiv" id="step4" class="hidden">
-            <div class="col-md-12">
-                <div class="subhead">添加题解<a class="glyphicon glyphicon-question-sign helpText" href="help.html#problemSolution" target="_blank"></a></div>
+            <div name="stepDiv" id="step4" class="hidden">
+                <div class="subhead">添加题解</div>
                 <div class="btn-group compiler">
                     <label class="lblcode">编程语言</label>
                     <br/>
@@ -155,80 +178,77 @@
                 </div> <br/><br/>
                 <div class="col-md-7">
                     <label class="lblcode">参考程序</label>
-                    <textarea id="code" rows="25"></textarea>
+                    <textarea id="code"></textarea>
                 </div>
                 <div class="col-md-5">
                     <label class="lblcode">解题思路</label>
-                    <textarea class="form-control" id="solution" rows="25"></textarea>
+                    <textarea class="form-control" id="solution" rows="35"></textarea>
+                </div>
+            </div>
+            <div name="stepDiv" id="step5" class="hidden">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="subhead">完成确认</div>
+                    <ol class="startPageText">
+                        <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
+                        <li>当然, 在您单击按钮之后, 我们会对您之前的工作做一个校验, 但是类似题目内容和参考题解这类的信息, 我们无法校验, 还请您注意检查</li>
+                        <li>当您的测试文件数据量很大时生成压缩包的时间会比较长, 请您耐心等待</li>
+                    </ol>
+                    <div id="hintDiv" class="alert alert-dismissable alert-warning hidden">
+                        <strong>提醒: </strong>您可以单击重新开始一道新的题目按钮来编辑一道新的题目, 但是这会导致您当前的编辑信息丢失, 请您在确定已经成功下载题目信息压缩包后再点击.
+                    </div>
+                    <br/>
+                    <div class="endPageBtn">
+                        <div class="btn-group">
+                            <span class="btn btn-default bigBtn" id="downloadBtn" data-toggle="tooltip" data-placement="bottom" title="下载题目信息">
+                                <span class="glyphicon glyphicon-download-alt bigico" aria-hidden="true"></span>
+                            </span>
+                            <input type="file" nwsaveas="problem.zip" accept=".zip" id="saveProBtn" style="display: none"/>
+                        </div>
+                        <div class="btn-group hidden" id="repeatDiv">
+                            <button class="btn btn-default bigBtn" id="repeatBtn" data-toggle="tooltip" data-placement="bottom" title="重新开始一道新的题目"><span class="glyphicon glyphicon-plus bigico" aria-hidden="true"></span></button>
+                        </div>
+                    </div> <br/>
                 </div>
             </div>
         </div>
-        <div name="stepDiv" id="step5" class="hidden">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="subhead">完成确认</div>
-                <br/>
-                <ul class="h4">
-                    <li>如果您已填写了之前的所有项目并且确定填写正确, 您可以单击下方的下载题目信息按钮来下载题目压缩包</li>
-                    <br/>
-                    <li>当然, 在您单击按钮之后, 我们会对您之前的工作做一个校验, 但是类似题目内容和参考题解这类的信息, 我们无法校验, 还请您注意检查</li>
-                    <br/>
-                    <li>当您的测试文件数据量很大时生成压缩包的时间会比较长, 请您耐心等待</li>
-                </ul>
-                <div id = "hintDiv" class="alert alert-dismissable alert-warning hidden">
-                    <strong>提醒 </strong>您可以单击重新开始一道新的题目按钮来编辑一道新的题目, 但是这会导致您当前的编辑信息丢失, 请您在确定已经成功下载题目信息压缩包后再继续.
-                </div>
-                <br/>
-                <div class="text-center">
-                    <div class="btn-group">
-                        <span class="btn btn-default downloadBtn" id="downloadBtn" data-toggle="tooltip" data-placement="bottom" title="下载题目信息">
-                            <span class="glyphicon glyphicon-download-alt downloadico" aria-hidden="true"></span>
-                        </span>
-                        <input type="file" nwsaveas="problem.zip" accept=".zip" id="saveProBtn" style="display: none"/>
-                    </div>
-                    <div class="btn-group hidden" id="repeatDiv">
-                        <button class="btn btn-default " id="repeatBtn" data-toggle="tooltip" data-placement="bottom" title="重新开始一道新的题目"><span class="glyphicon glyphicon-repeat downloadico" aria-hidden="true"></span></button>
-                    </div>
-                </div>
-                <br/>
+        <div class="dBtn">
+            <div class="preStepBtn hidden" id="preStepBtn">
+                <button class="btn btn-success" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></button>
+            </div>
+            <div class="previewStepBtn hidden" id="previewStepBtn">
+                <button class="btn btn-default" id="previewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
+            </div>
+            <div class="saveStepBtn hidden" id="saveStepBtn">
+                <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
+            </div>
+            <div class="nextStepBtn" id="nextStepBtn">
+                <button class="btn btn-success" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
             </div>
         </div>
     </div>
-    <div class="dBtn">
-        <div class="preStepBtn hidden" id="preStepBtn">
-            <button class="btn btn-success" role="button" id="preBtn"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">上一步</span></button>
-        </div>
-        <div class="previewBtn hidden" id="previewStepBtn">
-            <button class="btn btn-default" id="previewBtn">预览 <span class="glyphicon glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
-        </div>
-        <div class="saveStepBtn hidden" id="saveStepBtn">
-            <button class="btn btn-info" id="saveBtn">保存 <span class="glyphicon glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>
-        </div>
-        <div class="nextStepBtn" id="nextStepBtn">
-            <button class="btn btn-success" role="button" id="nextBtn">下一步<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-        </div>
-    </div>
-</div>
-<div class="footer">
-    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
-    <div class="footer-text">
-        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
-        <p class="footer-p">
-            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
-        </p>
-    </div>
+    <div id="pop_bar">
+        <ul class="dropdown-menu" id="pop_bar_list">
+            <li><a href="javascript:;" id="instrucBtn">使用说明</a></li>
+            <li><a href="javascript:;" id="helpPageBtn">出题说明</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a href="javascript:;" id="aboutBtn">关于</a></li>
+        </ul>
+    <a class="dropdown-toggle" id="pop_button" data-toggle="dropdown" href="#"><div ></div></a>
 </div>
 </body>
-    <script src="static/js/nicedit.js"></script>
-    <script>
-        bkLib.onDomLoaded(function() {
-
-            startMain();
-
-           var myNicEditor = new nicEditor({fullPanel : true,iconsPath:"static/images/nicEditorIcons.gif"});
-           myNicEditor.setPanel('nic_panel');
-           edits = ["description","inputdescription","outputdescription","inputsample","outputsample","hint","source"]
-           for (i in edits)
-               myNicEditor.addInstance(edits[i]+"_text");
-        });
-   </script>
+<script src="static/js/tools/nicedit.js"></script>
+<script>
+    function startMain(){
+        initAll();
+    }
+    bkLib.onDomLoaded(function() {
+        startMain();
+        var myNicEditor = new nicEditor({fullPanel : true,iconsPath:"static/images/nicEditorIcons.gif"});
+        myNicEditor.setPanel('nic_panel');
+        edits = ["description","inputdescription","outputdescription","inputsample","outputsample","hint","source"]
+        for (i in edits){
+            myNicEditor.addInstance(edits[i]+"_text");
+        }
+    });
+</script>
 </html>

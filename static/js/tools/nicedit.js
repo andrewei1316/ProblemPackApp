@@ -1691,7 +1691,12 @@ var nicUploadButton = nicEditorAdvancedButton.extend({
             display: "none"
         });
 
-        var data = getPictionBase64(B.path);
+        // 依赖于 nwjs
+        var fs = require("fs");
+        var data = fs.readFileSync(B.path);
+        if(data != null) data = data.toString('base64');
+        else data = ""
+
         var D  = new Object();
         D.link = data;
         D.width = "30px";

@@ -3,77 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>预览题目</title>
+    <title>题目预览</title>
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
-    <script src="static/js/jquery-1.11.0.min.js"></script>
-    <script src="static/js/main.js"></script>
-    <script>
-        var hint = null;
-        var source = null;
-        var config = null;
-        var message = null;
-        var description = null;
-        var inputsample = null;
-        var outputsample = null;
-        var inputdescription = null;
-        var outputdescription = null;
-
-        function initData(){
-            config = window.opener.problemData;
-            hint = document.getElementById("hint_text");
-            message = document.getElementById("message");
-            source = document.getElementById("source_text");
-            description = document.getElementById("description_text");
-            inputsample = document.getElementById("inputsample_text");
-            outputsample = document.getElementById("outputsample_text");
-            inputdescription = document.getElementById("inputdescription_text");
-            outputdescription = document.getElementById("outputdescription_text");
-
-            if(config.hint) hint.innerHTML = config.hint;
-            else addClass(hint.parentNode, "hidden");
-            if(config.source) source.innerHTML = config.source;
-            else addClass(source.parentNode, "hidden");
-            if(config.description) description.innerHTML = config.description;
-            else addClass(description.parentNode, "hidden");
-            if(config.inputdescription) inputdescription.innerHTML = config.inputdescription;
-            else addClass(inputdescription.parentNode, "hidden");
-            if(config.outputdescription) outputdescription.innerHTML = config.outputdescription;
-            else addClass(outputdescription.parentNode, "hidden");
-            if(config.inputsample) inputsample.innerHTML = config.inputsample;
-            else addClass(inputsample.parentNode, "hidden");
-            if(config.outputsample) outputsample.innerHTML = config.outputsample;
-            else addClass(outputsample.parentNode, "hidden");
-        };
-
-        function initMathJax(){
-            var script = document.createElement('script');
-            script.setAttribute('type','text/javascript');
-            script.src = "static/js/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-            script.onload=function(){
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-                MathJax.Hub.Config({
-                    tex2jax: {
-                        inlineMath: [
-                            ['$', '$'],
-                            ['\\(', '\\)']
-                        ]
-                    },
-                    "HTML-CSS": {
-                        EqnChunkDelay: "10"
-                    },
-                    showProcessingMessages: true
-                });
-            }
-            document.body.appendChild(script); 
-        }
-
-        window.onload = function(){
-            $('.contentBody').height(($(window).height()-174));
-            initData();
-            initMathJax();
-        }
-    </script>
+    <script src="static/js/libs/jquery-1.11.0.min.js"></script>
+    <script src="static/js/tools/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
 <div class = "body-container">
@@ -100,30 +34,21 @@
             </div>
             <div id="problem_sampleinput">
                 <h2 class="problemItem">输入样例</h2>
-                <div class="desc_text" id="inputsample_text"><pre></pre></div>
+                <div class="desc_text" id="inputsample_text"></div>
             </div>
             <div id="problem_sampleoutput">
                 <h2 class="problemItem">输出样例</h2>
-                <div class="desc_text" id="outputsample_text"><pre></pre></div>
+                <div class="desc_text" id="outputsample_text"></div>
             </div>
             <div id="problem_hint">
-                <h2 class="problemItem">提示</h2>
+                <h2 class="problemItem">解答提示</h2>
                 <div class="desc_text" id="hint_text"></div>
             </div>
             <div id="problem_source">
-                <h2 class="problemItem">来源</h2>
+                <h2 class="problemItem">来源(作者)</h2>
                 <div class="desc_text" id="source_text"></div>
             </div>
         </div>
-    </div>
-</div>
-<div class="footer">
-    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
-    <div class="footer-text">
-        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
-        <p class="footer-p">
-            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
-        </p>
     </div>
 </div>
 </body>

@@ -7,8 +7,15 @@
     <link rel="stylesheet" type="text/css" href="static/css/base.css"/>
     <link rel="stylesheet" type="text/css" href="static/helpPage/css/help.css"/>
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
-    <script src="static/js/jquery-1.11.0.min.js"></script>
+    <script src="static/js/libs/jquery-1.11.0.min.js"></script>
     <script src="static/helpPage/js/help.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('a[name=browser]').on('click', function(){
+                nw.Shell.openExternal(this.href);
+                return false;
+            });
+        });
     </script>
 </head>
 <body>
@@ -19,7 +26,7 @@
             <hr/>
         </div>
     </div>
-    <div class="dBody" style="top:82px;bottom:10px">
+    <div class="dBody" style="top:82px; bottom:10px">
         <div class="subhead">使用帮助</div>
         <div class="col-sm-4">
             <ul id="accordion" class="accordion">
@@ -44,8 +51,8 @@
                         <li><a href="#problemOutputDescription">输出描述</a></li>
                         <li><a href="#problemInputSample">输入样例</a></li>
                         <li><a href="#problemOutputSample">输出样例</a></li>
-                        <li><a href="#problemHint">提示</a></li>
-                        <li><a href="#problemSource">来源</a></li>
+                        <li><a href="#problemHint">解答提示</a></li>
+                        <li><a href="#problemSource">来源(作者)</a></li>
                     </ul>
                 </li>
                 <li>
@@ -104,17 +111,17 @@
             <div class="panel panel-success">
                 <div class="panel-heading">说明</div>
                 <div class="panel-body">
-                题目内容中的题目描述、输入描述、输出描述、提示和来源等处均已支持 MathJax 数学公式渲染引擎, 您可以在上述区域插入 Latex、MathML 和 ASCIIMathML 等标记语言, 有个比较简单的方法是, 您可以在网络上进行Latex的在线编辑(比如: <a href="https://www.codecogs.com/latex/eqneditor.php?lang=zh-cn" target="_blank">在线公式编辑器1</a>、<a href="http://zh.numberempire.com/texequationeditor/equationeditor.php" target="_blank">在线公式编辑器2</a>),然后将生成的代码复制到需要插入公式的区域. 注意: 您需要将生成的公式插入到两个符号之间才能正常渲染,主要有一下几种符号:<br/>
+                题目内容中的题目描述、输入描述、输出描述、解答提示和来源(作者)等处均已支持 MathJax 数学公式渲染引擎, 您可以在上述区域插入 Latex、MathML 和 ASCIIMathML 等标记语言, 有个比较简单的方法是, 您可以在网络上进行Latex的在线编辑(比如: <a href="https://www.codecogs.com/latex/eqneditor.php?lang=zh-cn" name="browser" target="_blank">在线公式编辑器1</a>、<a href="http://zh.numberempire.com/texequationeditor/equationeditor.php" name="browser" target="_blank">在线公式编辑器2</a>),然后将生成的代码复制到需要插入公式的区域. 注意: 您需要将生成的公式插入到两个符号之间才能正常渲染,主要有一下几种符号:<br/>
                 $ 公式 $ 或 \( 公式 \) 可以实现公式在行内显示.<br/>
                 $$ 公式 $$ 或 \[ 公式 \] 可以实现公式独占一行显示.<br/>
-                在插入公式后您可以点击页面下方的预览按钮来查看效果以便及时调整版面. 另外在该页面的顶部集成了一个富文本编辑器, 可以对于题目描述中的文字进行格式编辑(与Word类似), 也可以插入图片, 但要注意图片的大小请不要超过1MB. 
+                在插入公式后您可以点击页面下方的预览按钮来查看效果以便及时调整版面. 另外在该页面的顶部集成了一个富文本编辑器, 可以对于题目描述中的文字进行格式编辑(与Word类似), 也可以插入图片, 但要注意图片的大小请不要超过1MB.
                 </div>
             </div>
             <a name="problemDescription"></a>
             <div class="panel panel-success">
                 <div class="panel-heading">题目描述</div>
                 <div class="panel-body">
-                题目描述即题干, 需要描述清楚这个题目需要解决什么问题. 
+                题目描述即题干, 需要描述清楚这个题目需要解决什么问题.
                 </div>
             </div>
             <a name="problemInputDescription"></a>
@@ -147,14 +154,14 @@
             </div>
             <a name="problemHint"></a>
             <div class="panel panel-success">
-                <div class="panel-heading">提示</div>
+                <div class="panel-heading">解答提示</div>
                 <div class="panel-body">
-                提示主要针对题意的理解做一些补充的说明, 也可以对样例进行说明(例如输入的数据是如何得到输出的数据的),可填可不填.
+                解答提示主要针对题意的理解做一些补充的说明, 也可以对样例进行说明(例如输入的数据是如何得到输出的数据的),可填可不填.
                 </div>
             </div>
             <a name="problemSource"></a>
             <div class="panel panel-success">
-                <div class="panel-heading">来源</div>
+                <div class="panel-heading">来源(作者)</div>
                 <div class="panel-body">
                 类似于题目的版权声明, 可填可不填.
                 </div>
@@ -165,7 +172,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">文件夹说明</div>
                 <div class="panel-body">
-                添加用来测试提交的程序的数据, 要求所有的测试用例放在同一个文件夹中, 输入文件的扩展名必须为.in, 输出文件的扩展名必须为.out, 同时要求输入文件与输出文件的名称必须相同(此处的名称不包括扩展名), 测试用例中的测试点应当尽可能全面, 多方位测试程序的正确性, 如果要考察程序性能, 建议测试用例的数据量有小有大, 让暴力算法可得分但是得不到满分.
+                添加用来测试提交的程序正确性的测试用例, 每组测试用例包括一个输入文件和一个输出文件，建议设计5-10组测试用例，要求所有的测试用例放在同一个文件夹中, 输入文件的扩展名必须为.in, 输出文件的扩展名必须为.out, 同时要求输入文件与输出文件的名称必须相同(此处的名称不包括扩展名, 名称尽量不要使用中文), 测试用例中的测试点应当尽可能全面, 多方位测试程序的正确性, 如果要考察程序性能, 建议测试用例的数据量有小有大, 让暴力算法可得分但是得不到满分.
                 </div>
             </div>
             <a name="problemTestcaseScore"></a>
@@ -184,15 +191,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="footer">
-    <img class="pull-right" width="64px" height="64px" src="static/images/ICPC-Logo-Fishead.png">
-    <div class="footer-text">
-        <small class="pull-right">南京理工大学程序设计能力评测系统题目打包程序</small><br>
-        <p class="footer-p">
-            <small class="pull-right">版权所有 &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, 南京理工大学FishTeam开发组，保留一切权利</small>
-        </p>
     </div>
 </div>
 </body>
