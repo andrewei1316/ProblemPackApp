@@ -185,13 +185,13 @@ function initAll(){
                 jumpToPage(1);
                 pnotify.showMessage("恢复成功!", 'success');
             }, function(){
-                config = app.clearAllData();
+                config = app.createNewProblem();
                 initPage();
                 pnotify.showMessage("已取消恢复操作!", "notice");
             }
         );
     }, function errorFunc(){
-        config = app.getConfig();
+        config = app.createNewProblem();
         initPage();
     });
 }
@@ -595,20 +595,6 @@ function initPreviewPage(win, _config){
     else addClass(inputsample.parentNode, "hidden");
     if(_config.outputsample) outputsample.innerHTML = _config.outputsample;
     else addClass(outputsample.parentNode, "hidden");
-
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [
-                ['$', '$'],
-                ['\\(', '\\)']
-            ]
-        },
-        "HTML-CSS": {
-            EqnChunkDelay: "10"
-        },
-        showProcessingMessages: true
-    });
 }
 
 /*

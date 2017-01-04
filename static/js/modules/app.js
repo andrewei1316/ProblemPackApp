@@ -113,7 +113,6 @@ class App{
             self.PROBLEM_CONFIG_PATH,
             function(configData){
                 try{
-                    console.log('setConfigFromRoot');
                     configData = JSON.parse(configData);
                     let err_message = self.checkRootFiles(
                         configData, self.PROBLEM_DATA_ROOT_PATH);

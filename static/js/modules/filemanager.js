@@ -127,6 +127,7 @@ class FileManager {
                     self.fs.unlinkSync(curPath);
                 }
             });
+            self.fs.rmdirSync(dirPath);
         }
     }
 };

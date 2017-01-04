@@ -8,6 +8,14 @@
     <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css"/>
     <script src="static/js/libs/jquery-1.11.0.min.js"></script>
     <script src="static/js/tools/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
+            "HTML-CSS": {EqnChunkDelay: "10"},
+            showProcessingMessages: true
+        });
+    </script>
 </head>
 <body>
 <div class = "body-container">
