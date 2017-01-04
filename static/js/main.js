@@ -467,14 +467,23 @@ function addEvent(){
     }
 
     nw.Window.get().on('close', function() {
-        console.info("ready to close");
         let self = this;
-        self.hide();
         savePage(function(){
-            app.readyToClose();
-            self.close(true);
+            app.readyToClose(function saveDataFunc(){
+                let warningText = '您有尚未保存的更改，是否保存以便下次启动时恢复？';
+                console.info(warningText);
+                pnotify.showConfirm('注意', warningText, 'notice', '保存', '不保存', function(){
+                    self.close(true);
+                }, function(){
+                    app.clearAllData();
+                    self.close(true);
+                });
+            }, function deleteDataFunc(){
+                app.clearAllData();
+                self.close(true);
+            });
         }, function(){
-            app.readyToClose();
+            app.clearAllData();
             self.close(true);
         });
     });

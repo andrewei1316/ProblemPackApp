@@ -20,29 +20,28 @@ class App{
             this.PROBLEM_CONFIG_FILENAME);
     }
 
-    readyToClose(){
+    readyToClose(saveDataFunc, deleteDataFunc){
         function compareJson(obj1, obj2) {
             let ret = {};
             for(let i in obj2) {
-                if(i == 'datascore'){
-                    continue;
-                }
+                if(i === 'datascore'){continue; }
                 if(!obj1.hasOwnProperty(i) || obj2[i] !== obj1[i]) {
                     ret[i] = obj2[i];
                 }
             }
             return ret;
         }
-
         let self = this;
         if(self.isNeedClear){
-            self.fileManager.deleteDir(self.PROBLEM_ROOT_PATH);
+            deleteDataFunc();
         }else{
             let _config = new Config();
             let initConfig = _config.getConfigByJson();
             let result = compareJson(initConfig, self.config.getConfigByJson());
             if($.isEmptyObject(result)){
-                self.fileManager.deleteDir(self.PROBLEM_ROOT_PATH);
+                deleteDataFunc();
+            }else{
+                saveDataFunc();
             }
         }
     }
