@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>关于本程序</title>
-	<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>关于本程序</title>
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
     <script src="static/js/libs/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
+    <script type="text/javascript">
+        $(document).ready(function(){
             $('a[name=browser').on('click', function(){
                 nw.Shell.openExternal(this.href);
                 return false;
             });
-		});
-	</script>
+        });
+    </script>
 </head>
 <body>
-	<div style="text-align: center;">
-		<img src="static/images/ICPC-Logo-Fishead.png" width="100" height="100">
-		<h4>题目打包程序</h4>
-		<p>版本：v1.1.0<br/>
-		项目地址: <a href="https://github.com/NJUST-FishTeam/ProblemPackApp" name="browser" target="_blank"> Github </a></p>
-		<p>NJUST-FishTeam CAT开发团队开发</p>
-		<p>特别鸣谢开源项目 <a href="https://github.com/nwjs/nw.js" name="browser" target="_blank">NW.js</a></p>
-	</div>
+    <div style="text-align: center;">
+        <img src="static/images/ICPC-Logo-Fishead.png" width="100" height="100">
+        <h4>题目打包程序</h4>
+        <p>版本：v1.1.0<br/>
+        项目地址: <a href="https://github.com/NJUST-FishTeam/ProblemPackApp" name="browser" target="_blank"> Github </a></p>
+        <p>NJUST-FishTeam CAT开发团队开发</p>
+        <p>特别鸣谢开源项目 <a href="https://github.com/nwjs/nw.js" name="browser" target="_blank">NW.js</a></p>
+    </div>
 </body>
 </html>
